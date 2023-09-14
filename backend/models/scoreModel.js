@@ -10,7 +10,7 @@ const scoreSchema = new mongoose.Schema(
 	score: {
 		type: Number,
 		required: true
-	}
+	},
 	level: {
 		type: String,
 		required: true
@@ -25,4 +25,4 @@ const scoreSchema = new mongoose.Schema(
 );
 
 // Export model for scores to read/write from database
-export const scoreModel = mongoose.model("score", scoreSchema);
+export const Score = mongoose.model("score", scoreSchema);
