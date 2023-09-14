@@ -5,11 +5,13 @@ import { PORT, mongoDBURL } from "./config.js";
 
 const app = express();
 
+// Routes
 app.get("/", (req, res) => {
 	console.log(req);
 	return res.status(234).send("Welcome to the leaderboard!");
 });
 
+// Connect to MongoDB and start node server if successful
 mongoose
 	.connect(mongoDBURL)
 	.then(() => {
