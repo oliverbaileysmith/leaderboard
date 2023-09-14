@@ -1,8 +1,16 @@
 import React from "react";
+import {Routes, Route} from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import User from "./pages/User.jsx";
+import Level from "./pages/Level.jsx";
 
 const App = () => {
 	return (
-		<div className="bg-red-400 text-white">App</div>
+	<Routes>
+		<Route path="/" element={<Home />}/>
+		<Route path="/user/:username" element={<User />}/>
+		<Route path="/level/:level" element={<Level />}/>
+	</Routes>
 	)
 };
 
