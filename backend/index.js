@@ -44,6 +44,59 @@ app.post("/scores", async (req, res) => {
 	}
 });
 
+// Get all scores, recent first
+app.get("/scores", async (req, res) => {
+	try {
+		// Get all documents sorted by time created, descending
+		const scoresDocuments = await Score.find({}).sort({createdAt: -1});
+
+		return res.status(200).json({
+			count: scoresDocuments.length,
+			data: scoresDocuments
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({message: error.message});
+	}
+});
+
+// Get all scores for a user, highest first
+app.get("/user/:username", async (req, res) => {
+	try {
+		// Get username from request
+		const { username } = req.params;
+
+		// Find scores for that user
+		const scoresDocuments = await Score.find({username: username}).sort({score: -1});
+
+		return res.status(200).json({
+			count: scoresDocuments.length,
+			data: scoresDocuments
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({message: error.message});
+	}
+});
+
+// Get all scores for a level, highest first
+app.get("/scores/:level", async (req, res) => {
+	try {
+		// Get level from request
+		const { level } = req.params;
+
+		// Find scores for that level
+		const scoresDocuments = await Score.find({level: level}).sort({score: -1});
+
+		return res.status(200).json({
+			count: scoresDocuments.length,
+			data: scoresDocuments
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({message: error.message});
+	}
+});
 
 /******************************* CONNECTION ***********************************/
 
