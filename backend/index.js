@@ -20,8 +20,8 @@ app.get("/", (req, res) => {
 // Get all scores, recent first
 app.get("/scores", async (req, res) => {
 	try {
-		// Get all documents sorted by time created, descending
-		const scoresDocuments = await Score.find({}).sort({createdAt: -1});
+		// Get all documents sorted by time updated, descending
+		const scoresDocuments = await Score.find({}).sort({updatedAt: -1});
 
 		return res.status(200).json({
 			count: scoresDocuments.length,
@@ -119,6 +119,26 @@ app.put("/scores/:id", async (req, res) => {
 		}
 
 		return res.status(200).send({message: "Updated score."});
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({message: error.message});
+	}
+});
+
+// Delete a score
+app.delete("/scores/:id", async (req, res) => {
+	try {
+		// Get id from request
+		const { id } = req.params;
+
+		// Find and delete score by id
+		const scoreDocument = await Score.findByIdAndDelete(id);
+
+		if (!scoreDocument) {
+			return res.status(404).json({message: "Score not found."});
+		}
+
+		return res.status(200).send({message: "Deleted score."});
 	} catch (error) {
 		console.log(error);
 		res.status(500).send({message: error.message});
