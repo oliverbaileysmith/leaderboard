@@ -26,28 +26,32 @@ const Home = () => {
 		return "Loading...";
 
 	return (
-		<table>
-			<thead>
-				<tr>
-					<th>User</th>
-					<th>Score</th>
-					<th>Level</th>
-					<th>Date</th>
-				</tr>
-			</thead>
-			<tbody>
-			{scores.map((score) => {
-				return (
-					<tr key={score._id}>
-						<td>{score.username}</td>
-						<td>{score.score}</td>
-						<td>{score.level}</td>
-						<td>{score.updatedAt}</td>
-					</tr>
-				)
-			})}
-			</tbody>
-		</table>
+		<div className="flex justify-center">
+			<div className="flex bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
+				<table className="flex-1">
+					<thead>
+						<tr>
+							<th>User</th>
+							<th>Score</th>
+							<th>Level</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+					{scores.map((score) => {
+						return (
+							<tr key={score._id} className="rounded-md max-w-6xl">
+								<td className="text-center p-2">{score.username}</td>
+								<td className="text-center">{score.score}</td>
+								<td className="text-center">{score.level}</td>
+								<td className="text-center">{score.updatedAt}</td>
+							</tr>
+						)
+					})}
+					</tbody>
+				</table>
+			</div>
+		</div>
 	);
 };
 
