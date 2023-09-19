@@ -18,7 +18,41 @@ const SubmitScore = () => {
 		console.log(score);
 		console.log(level);
 
+		trySubmit();
+
 		setStatus("typing");
+	}
+
+	const trySubmit = () => {
+		const reqBody = {
+			username: username,
+			score: score,
+			level: level
+		};
+
+		fetch("http://localhost:5555/scores/",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(reqBody)
+		})
+		.then(res => {
+			if (!res.ok)
+				throw new Error("Network error.");
+			return res.json();
+		})
+		.then(data => {
+			console.log(data);
+			setStatus("success");
+			setError(null);
+		})
+		.catch(error => {
+			setError(error.message);
+			console.error(error.message);
+			setStatus("typing");
+		});
 	}
 
 	return (
@@ -64,6 +98,8 @@ const SubmitScore = () => {
 						}
 					/>
 				</form>
+
+				{error ? <p>Error: {error}</p> : null}
 
 			</div>
 		</div>
