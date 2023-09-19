@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 const TableRow = (props) => {
-	let s = props.score;
+	let s = props.data;
 
 	return (
 		<tr className="max-w-6xl border-y drop-shadow-md hover:bg-slate-200">

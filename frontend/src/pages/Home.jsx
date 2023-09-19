@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 
-import TableRow from "../components/TableRow.jsx";
+import ScoresTable from "../components/ScoresTable.jsx";
 
 const Home = () => {
 	const [scores, setScores] = useState();
@@ -31,22 +31,7 @@ const Home = () => {
 	return (
 		<div className="flex justify-center bg-green-200">
 			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
-				<table className="w-full">
-
-					<thead>
-						<tr>
-							<th>User</th>
-							<th>Score</th>
-							<th>Level</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						{scores.map((score) => <TableRow score={score} />)}
-					</tbody>
-
-				</table>
+				<ScoresTable scores={scores}/>
 			</div>
 		</div>
 	);
