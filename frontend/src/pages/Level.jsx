@@ -65,7 +65,7 @@ const Level = () => {
 									</Link>
 								</td>
 								<td className="text-center">
-										{score.updatedAt}
+									{score.updatedAt.substring(0,10)}
 								</td>
 							</tr>
 						)
