@@ -30,7 +30,7 @@ const User = () => {
 	if (loading)
 		return "Loading...";
 
-	return <ScoresTable scores={scores}/>;
+	return <ScoresTable scores={scores} showRank={false}/>;
 };
 
 export default User;

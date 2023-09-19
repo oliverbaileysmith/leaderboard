@@ -30,10 +30,7 @@ const Level = () => {
 	if (loading)
 		return "Loading...";
 
-	// To be incremented for leftmost rank column
-	let rank = 1;
-
-	return <ScoresTable scores={scores}/>;
+	return <ScoresTable scores={scores} showRank={true}/>;
 };
 
 export default Level;
