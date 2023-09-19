@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 
 const Home = () => {
 	const [scores, setScores] = useState();
@@ -41,10 +42,22 @@ const Home = () => {
 					{scores.map((score) => {
 						return (
 							<tr key={score._id} className="rounded-md max-w-6xl">
-								<td className="text-center p-2">{score.username}</td>
-								<td className="text-center">{score.score}</td>
-								<td className="text-center">{score.level}</td>
-								<td className="text-center">{score.updatedAt}</td>
+								<td className="text-center">
+									<Link to={`/user/${score.username}`}>
+										{score.username}
+									</Link>
+								</td>
+								<td className="text-center">
+										{score.score}
+								</td>
+								<td className="text-center">
+									<Link to={`/level/${score.level}`}>
+										{score.level}
+									</Link>
+								</td>
+								<td className="text-center">
+										{score.updatedAt}
+								</td>
 							</tr>
 						)
 					})}
