@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-
 const SubmitScore = () => {
 	const [username, setUsername] = useState("");
 	const [score, setScore] = useState("");
@@ -13,10 +12,6 @@ const SubmitScore = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setStatus("submitting");
-
-		console.log(username);
-		console.log(score);
-		console.log(level);
 
 		trySubmit();
 
@@ -44,8 +39,10 @@ const SubmitScore = () => {
 			return res.json();
 		})
 		.then(data => {
-			console.log(data);
 			setStatus("success");
+			setUsername("");
+			setScore("");
+			setLevel("");
 			setError(null);
 		})
 		.catch(error => {
@@ -65,6 +62,7 @@ const SubmitScore = () => {
 						type="text"
 						id="username"
 						name="username"
+						value={username}
 						onChange={ (e)=>setUsername(e.target.value) }
 					/>
 					<br/>
@@ -74,6 +72,7 @@ const SubmitScore = () => {
 						type="text"
 						id="score"
 						name="score"
+						value={score}
 						onChange={ (e)=>setScore(e.target.value) }
 					/>
 					<br/>
@@ -83,6 +82,7 @@ const SubmitScore = () => {
 						type="text"
 						id="level"
 						name="level"
+						value={level}
 						onChange={ (e)=>setLevel(e.target.value) }
 					/>
 					<br/>
@@ -99,6 +99,7 @@ const SubmitScore = () => {
 					/>
 				</form>
 
+				{/* TODO: improve error handling*/}
 				{error ? <p>Error: {error}</p> : null}
 
 			</div>
