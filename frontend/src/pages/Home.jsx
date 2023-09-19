@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 
+import TableRow from "../components/TableRow.jsx";
+
 const Home = () => {
 	const [scores, setScores] = useState();
 	const [loading, setLoading] = useState(true);
@@ -27,9 +29,10 @@ const Home = () => {
 		return "Loading...";
 
 	return (
-		<div className="flex justify-center">
+		<div className="flex justify-center bg-green-200">
 			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
 				<table className="w-full">
+
 					<thead>
 						<tr>
 							<th>User</th>
@@ -38,33 +41,11 @@ const Home = () => {
 							<th>Date</th>
 						</tr>
 					</thead>
+
 					<tbody>
-					{scores.map((score) => {
-						return (
-							<tr
-								key={score._id}
-								className="rounded-md max-w-6xl border-y drop-shadow-md hover:bg-slate-200"
-							>
-								<td className="text-center font-semibold py-1.5">
-									<Link to={`/user/${score.username}`} className="hover:underline p-2">
-										{score.username}
-									</Link>
-								</td>
-								<td className="text-center">
-										{score.score}
-								</td>
-								<td className="text-center">
-									<Link to={`/level/${score.level}`} className="hover:underline p-2">
-										{score.level}
-									</Link>
-								</td>
-								<td className="text-center">
-										{score.updatedAt.substring(0,10)}
-								</td>
-							</tr>
-						)
-					})}
+						{scores.map((score) => <TableRow score={score} />)}
 					</tbody>
+
 				</table>
 			</div>
 		</div>
