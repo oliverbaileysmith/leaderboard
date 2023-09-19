@@ -28,13 +28,7 @@ const Home = () => {
 	if (loading)
 		return "Loading...";
 
-	return (
-		<div className="flex justify-center bg-green-200">
-			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
-				<ScoresTable scores={scores}/>
-			</div>
-		</div>
-	);
+	return <ScoresTable scores={scores}/>;
 };
 
 export default Home;

@@ -12,12 +12,16 @@ const App = () => {
 	return (
 	<>
 		<Header />
-		<Routes>
-			<Route path="/" element={<Home />}/>
-			<Route path="/submit" element={<SubmitScore />}/>
-			<Route path="/user/:username" element={<User />}/>
-			<Route path="/level/:level" element={<Level />}/>
-		</Routes>
+		<div className="flex justify-center bg-green-200">
+			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
+				<Routes>
+					<Route path="/" element={<Home />}/>
+					<Route path="/submit" element={<SubmitScore />}/>
+					<Route path="/user/:username" element={<User />}/>
+					<Route path="/level/:level" element={<Level />}/>
+				</Routes>
+			</div>
+		</div>
 	</>
 	)
 };

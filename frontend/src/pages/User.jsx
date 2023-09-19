@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+
+import ScoresTable from "../components/ScoresTable.jsx";
 
 const User = () => {
 	const [scores, setScores] = useState();
 	const [loading, setLoading] = useState(true);
+
+	const location = useLocation();
 
 	// Fetch all scores on page setup
 	useEffect(() => {
@@ -26,46 +30,7 @@ const User = () => {
 	if (loading)
 		return "Loading...";
 
-	return (
-		<div className="flex justify-center">
-			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
-				<table className="w-full">
-					<thead>
-						<tr>
-							<th>User</th>
-							<th>Score</th>
-							<th>Level</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-					{scores.map((score) => {
-						return (
-							<tr key={score._id} className="rounded-md max-w-6xl">
-								<td className="text-center">
-									<Link to={`/user/${score.username}`}>
-										{score.username}
-									</Link>
-								</td>
-								<td className="text-center">
-										{score.score}
-								</td>
-								<td className="text-center">
-									<Link to={`/level/${score.level}`}>
-										{score.level}
-									</Link>
-								</td>
-								<td className="text-center">
-									{score.updatedAt.substring(0,10)}
-								</td>
-							</tr>
-						)
-					})}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	);
+	return <ScoresTable scores={scores}/>;
 };
 
 export default User;
