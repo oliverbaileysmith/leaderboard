@@ -83,15 +83,20 @@ const getUserProfile = asyncWrap(async (req, res, next) => {
 const updateUserProfile = asyncWrap(async (req, res, next) => {
 	const user = await User.findById(req.user._id);
 
-	if (user && req.body.password) {
-		user.password = req.body.password;
+	if (user) {
+		if (req.body.password) {
+			user.password = req.body.password;
+			const updatedUser = await user.save();
 
-		const updatedUser = await user.save();
+			res.status(200).json({
+				_id: updatedUser._id,
+				username: updatedUser.username
+			});
+		} else {
+			res.status(400);
+			throw new Error("Couldn't update profile, request body empty");
+		}
 
-		res.status(200).json({
-			_id: updatedUser._id,
-			username: updatedUser.username
-		});
 	} else {
 		res.status(404);
 		throw new Error("User not found");
