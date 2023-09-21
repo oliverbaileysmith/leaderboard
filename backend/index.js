@@ -3,10 +3,11 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
 import scoreRoutes from "./routes/scoreRoutes.js";
 
 dotenv.config();
-const PORT = process.env.PORT || 5555;
+const PORT = process.env.PORT;
 
 const app = express();
 
@@ -24,6 +25,10 @@ app.use(
 
 // Use routes from "/routes/scoreRoutes.js" for /scores routes
 app.use("/api/scores", scoreRoutes);
+
+// Custom error handling
+app.use(notFound);
+app.use(errorHandler);
 
 // Connect to MongoDB and start node server if successful
 mongoose
