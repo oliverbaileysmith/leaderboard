@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
+
 import scoreRoutes from "./routes/scoreRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -23,8 +25,9 @@ app.use(
 	})
 );
 
-// Use routes from "/routes/scoreRoutes.js" for /scores routes
+// Routes
 app.use("/api/scores", scoreRoutes);
+app.use("/api/users", userRoutes);
 
 // Custom error handling
 app.use(notFound);
