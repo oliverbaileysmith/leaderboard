@@ -81,7 +81,21 @@ const getUserProfile = asyncWrap(async (req, res, next) => {
 // PUT /api/users/profile
 // Private
 const updateUserProfile = asyncWrap(async (req, res, next) => {
-	return res.status(200).json({message: "Update user profile" });
+	const user = await User.findById(req.user._id);
+
+	if (user && req.body.password) {
+		user.password = req.body.password;
+
+		const updatedUser = await user.save();
+
+		res.status(200).json({
+			_id: updatedUser._id,
+			username: updatedUser.username
+		});
+	} else {
+		res.status(404);
+		throw new Error("User not found");
+	}
 });
 
 export {
