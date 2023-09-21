@@ -2,7 +2,7 @@ import { Score } from "../models/scoreModel.js";
 
 // Get all scores, recent first
 // GET /api/scores/
-const getRecentScores = async (req, res) => {
+const getRecentScores = async (req, res, next) => {
 	try {
 		// Get all documents sorted by time updated, descending
 		const scoresDocuments = await Score.find({}).sort({updatedAt: -1});
@@ -12,54 +12,51 @@ const getRecentScores = async (req, res) => {
 			data: scoresDocuments
 		});
 	} catch (error) {
-		console.log(error);
-		res.status(500).send({message: error.message});
+		return next(error);
 	}
 };
 
 // Get all scores for a user, highest first
 // GET /api/scores/user/:username
-const getUserScores = async (req, res) => {
+const getUserScores = async (req, res, next) => {
 	try {
 		// Get username from request
 		const { username } = req.params;
 
 		// Find scores for that user
-		const scoresDocuments = await Score.find({username: username}).sort({score: -1});
+		const scoresDocuments = await Score.find({username}).sort({score: -1});
 
 		return res.status(200).json({
 			count: scoresDocuments.length,
 			data: scoresDocuments
 		});
 	} catch (error) {
-		console.log(error);
-		res.status(500).send({message: error.message});
+		return next(error);
 	}
 };
 
 // Get all scores for a level, highest first
 // GET /api/scores/level/:level
-const getLevelScores = async (req, res) => {
+const getLevelScores = async (req, res, next) => {
 	try {
 		// Get level from request
 		const { level } = req.params;
 
 		// Find scores for that level
-		const scoresDocuments = await Score.find({level: level}).sort({score: -1});
+		const scoresDocuments = await Score.find({level}).sort({score: -1});
 
 		return res.status(200).json({
 			count: scoresDocuments.length,
 			data: scoresDocuments
 		});
 	} catch (error) {
-		console.log(error);
-		res.status(500).send({message: error.message});
+		return next(error);
 	}
 };
 
 // Save a new score
 // POST /api/scores/
-const newScore = async (req, res) => {
+const newScore = async (req, res, next) => {
 	try {
 		// Ensure required fields are present
 		if (!req.body.username || !req.body.score || !req.body.level) {
@@ -80,14 +77,13 @@ const newScore = async (req, res) => {
 
 		return res.status(201).send(scoreDocument);
 	} catch (error) {
-		console.log(error);
-		res.status(500).send({message: error.message});
+		return next(error);
 	}
 };
 
 // Update a score
 // PUT /api/scores/:id
-const updateScore = async (req, res) => {
+const updateScore = async (req, res, next) => {
 	try {
 		// Ensure required fields are present
 		if (!req.body.username || !req.body.score || !req.body.level) {
@@ -108,14 +104,13 @@ const updateScore = async (req, res) => {
 
 		return res.status(200).send({message: "Updated score."});
 	} catch (error) {
-		console.log(error);
-		res.status(500).send({message: error.message});
+		return next(error);
 	}
 };
 
 // Delete a score
 // DELETE /api/scores/:id
-const deleteScore = async (req, res) => {
+const deleteScore = async (req, res, next) => {
 	try {
 		// Get id from request
 		const { id } = req.params;
@@ -129,8 +124,7 @@ const deleteScore = async (req, res) => {
 
 		return res.status(200).send({message: "Deleted score."});
 	} catch (error) {
-		console.log(error);
-		res.status(500).send({message: error.message});
+		return next(error);
 	}
 };
 
