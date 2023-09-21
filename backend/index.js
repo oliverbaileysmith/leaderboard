@@ -1,9 +1,13 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+
 import mongoose from "mongoose";
 import cors from "cors";
 
-import { PORT, mongoDBURL } from "./config.js";
 import scoresRoute from "./routes/scoresRoutes.js";
+
+const PORT = process.env.PORT || 5555;
 
 const app = express();
 
@@ -28,7 +32,7 @@ app.use("/scores", scoresRoute);
 
 // Connect to MongoDB and start node server if successful
 mongoose
-	.connect(mongoDBURL)
+	.connect(process.env.MONGODB_URI)
 	.then(() => {
 		console.log("App connected to MongoDB.");
 
