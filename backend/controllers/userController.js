@@ -57,14 +57,24 @@ const logInUser = asyncWrap(async (req, res, next) => {
 // POST /api/users/logout
 // Public
 const logOutUser = asyncWrap(async (req, res, next) => {
-	return res.status(200).json({message: "Log out user" });
+	res.cookie("jwt", "", {
+		httpOnly: true,
+		expires: new Date(0)
+	});
+
+	res.status(200).json({ message: "User logged out"});
 });
 
 // Get user profile
 // GET /api/users/profile
 // Private
 const getUserProfile = asyncWrap(async (req, res, next) => {
-	return res.status(200).json({message: "User profile" });
+	const user = {
+		_id: req.user._id,
+		username: req.user.username
+	};
+
+	return res.status(200).json(user);
 });
 
 // Update user profile

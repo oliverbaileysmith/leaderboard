@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
 
@@ -16,6 +17,9 @@ const app = express();
 // Parse request body
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+// Parse cookies
+app.use(cookieParser());
 
 // Handle CORS
 app.use(
