@@ -1,4 +1,5 @@
-import asyncWrap from "../util.js"
+import asyncWrap from "../utils/asyncWrap.js";
+import generateToken from "../utils/generateToken.js";
 
 import {User} from "../models/userModel.js";
 
@@ -6,43 +7,49 @@ import {User} from "../models/userModel.js";
 // POST /api/users
 // Public
 const registerUser = asyncWrap(async (req, res, next) => {
-	try {
-		const {username, password} = req.body;
+	const {username, password} = req.body;
 
-		const userExists = await User.findOne({username});
+	const userExists = await User.findOne({username});
 
-		if (userExists) {
-			res.status(400);
-			throw new Error("User already exists");
-		}
+	if (userExists) {
+		res.status(400);
+		throw new Error("User already exists");
+	}
 
-		const user = await User.create({
-			username,
-			password
+	const user = await User.create({
+		username,
+		password
+	});
+
+	if (user) {
+		generateToken(res, user._id);
+		res.status(201).json({
+			_id: user._id,
+			username: user.username
 		});
-
-		if (user) {
-			res.status(201).json({
-				_id: user._id,
-				username: user.username
-			});
-		} else {
-			res.status(400);
-			throw new Error("Invalid user data");
-		}
-	} catch(error) {
-		return next(error);
+	} else {
+		res.status(400);
+		throw new Error("Invalid user data");
 	}
 });
 
-// Authorize user
-// POST /api/users/auth
+// Log in user
+// POST /api/users/login
 // Public
-const authUser = asyncWrap(async (req, res, next) => {
-	try {
-		return res.status(200).json({message: "Auth user" });
-	} catch(error) {
-		return next(error);
+const logInUser = asyncWrap(async (req, res, next) => {
+	const {username, password} = req.body;
+
+	const user = await User.findOne({username});
+
+	if (user && (await user.matchPassword(password))) {
+		generateToken(res, user._id);
+		res.status(201).json({
+			_id: user._id,
+			username: user.username
+		});
+	} else {
+		res.status(401);
+		throw new Error("Invalid username or password");
 	}
 });
 
@@ -50,38 +57,26 @@ const authUser = asyncWrap(async (req, res, next) => {
 // POST /api/users/logout
 // Public
 const logOutUser = asyncWrap(async (req, res, next) => {
-	try {
-		return res.status(200).json({message: "Log out user" });
-	} catch(error) {
-		return next(error);
-	}
+	return res.status(200).json({message: "Log out user" });
 });
 
 // Get user profile
 // GET /api/users/profile
 // Private
 const getUserProfile = asyncWrap(async (req, res, next) => {
-	try {
-		return res.status(200).json({message: "User profile" });
-	} catch(error) {
-		return next(error);
-	}
+	return res.status(200).json({message: "User profile" });
 });
 
 // Update user profile
 // PUT /api/users/profile
 // Private
 const updateUserProfile = asyncWrap(async (req, res, next) => {
-	try {
-		return res.status(200).json({message: "Update user profile" });
-	} catch(error) {
-		return next(error);
-	}
+	return res.status(200).json({message: "Update user profile" });
 });
 
 export {
 	registerUser,
-	authUser,
+	logInUser,
 	logOutUser,
 	getUserProfile,
 	updateUserProfile

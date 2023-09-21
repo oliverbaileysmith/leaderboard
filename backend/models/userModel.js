@@ -29,5 +29,9 @@ userSchema.pre("save", async function(next) {
 	this.password = await bcrypt.hash(this.password, salt);
 });
 
+userSchema.methods.matchPassword = async function(enteredPassword) {
+	return await bcrypt.compare(enteredPassword, this.password);
+};
+
 // Export model for scores to read/write from database
 export const User = mongoose.model("user", userSchema);
