@@ -15,6 +15,7 @@ const app = express();
 
 // Parse request body
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 // Handle CORS
 app.use(
@@ -34,8 +35,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Connect to MongoDB and start node server if successful
-mongoose
-	.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
 	.then(() => {
 		console.log("App connected to MongoDB.");
 

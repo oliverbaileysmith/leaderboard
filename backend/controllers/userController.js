@@ -1,61 +1,87 @@
+import asyncWrap from "../util.js"
+
+import {User} from "../models/userModel.js";
+
+// Register new user
+// POST /api/users
+// Public
+const registerUser = asyncWrap(async (req, res, next) => {
+	try {
+		const {username, password} = req.body;
+
+		const userExists = await User.findOne({username});
+
+		if (userExists) {
+			res.status(400);
+			throw new Error("User already exists");
+		}
+
+		const user = await User.create({
+			username,
+			password
+		});
+
+		if (user) {
+			res.status(201).json({
+				_id: user._id,
+				username: user.username
+			});
+		} else {
+			res.status(400);
+			throw new Error("Invalid user data");
+		}
+	} catch(error) {
+		return next(error);
+	}
+});
+
 // Authorize user
 // POST /api/users/auth
 // Public
-const authUser = async (req, res, next) => {
+const authUser = asyncWrap(async (req, res, next) => {
 	try {
 		return res.status(200).json({message: "Auth user" });
 	} catch(error) {
 		return next(error);
 	}
-}
-
-// Register new user
-// POST /api/users
-// Public
-const registerUser = async (req, res, next) => {
-	try {
-		return res.status(200).json({message: "Register user" });
-	} catch(error) {
-		return next(error);
-	}
-}
+});
 
 // Log out user
 // POST /api/users/logout
 // Public
-const logOutUser = async (req, res, next) => {
+const logOutUser = asyncWrap(async (req, res, next) => {
 	try {
 		return res.status(200).json({message: "Log out user" });
 	} catch(error) {
 		return next(error);
 	}
-}
+});
 
 // Get user profile
 // GET /api/users/profile
 // Private
-const getUserProfile = async (req, res, next) => {
+const getUserProfile = asyncWrap(async (req, res, next) => {
 	try {
 		return res.status(200).json({message: "User profile" });
 	} catch(error) {
 		return next(error);
 	}
-}
+});
 
 // Update user profile
 // PUT /api/users/profile
 // Private
-const updateUserProfile = async (req, res, next) => {
+const updateUserProfile = asyncWrap(async (req, res, next) => {
 	try {
 		return res.status(200).json({message: "Update user profile" });
 	} catch(error) {
 		return next(error);
 	}
-}
+});
 
 export {
-	authUser,
 	registerUser,
+	authUser,
 	logOutUser,
 	getUserProfile,
 	updateUserProfile

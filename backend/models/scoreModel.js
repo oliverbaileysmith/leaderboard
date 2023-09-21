@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
 // Schema for scores
-const scoreSchema = new mongoose.Schema(
-{
+const scoreSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true
@@ -21,8 +20,7 @@ const scoreSchema = new mongoose.Schema(
 // This argument adds createdAt and updatedAt timestamps to the schema
 {
 	timestamps: true
-}
-);
+});
 
 // Export model for scores to read/write from database
 export const Score = mongoose.model("score", scoreSchema);
