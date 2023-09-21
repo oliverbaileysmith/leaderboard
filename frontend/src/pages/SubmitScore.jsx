@@ -25,7 +25,7 @@ const SubmitScore = () => {
 			level: level
 		};
 
-		fetch("http://localhost:5555/scores/",
+		fetch("http://localhost:5555/api/scores/",
 		{
 			method: "POST",
 			headers: {

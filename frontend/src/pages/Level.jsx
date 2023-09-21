@@ -11,7 +11,7 @@ const Level = () => {
 
 	// Fetch scores for this level on page setup
 	useEffect(() => {
-		fetch(`http://localhost:5555/scores${location.pathname}`)
+		fetch(`http://localhost:5555/api/scores${location.pathname}`)
 		.then(res => {
 			if (!res.ok)
 				throw new Error("Network error.");

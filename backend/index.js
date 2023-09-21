@@ -1,12 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
-
 import mongoose from "mongoose";
 import cors from "cors";
 
-import scoresRoute from "./routes/scoresRoutes.js";
+import scoreRoutes from "./routes/scoreRoutes.js";
 
+dotenv.config();
 const PORT = process.env.PORT || 5555;
 
 const app = express();
@@ -23,12 +22,8 @@ app.use(
 	})
 );
 
-app.get("/", (req, res) => {
-	return res.status(234).send("Welcome to the leaderboard!");
-});
-
-// Use routes from "/routes/scoresRoutes.js" for /scores routes
-app.use("/scores", scoresRoute);
+// Use routes from "/routes/scoreRoutes.js" for /scores routes
+app.use("/api/scores", scoreRoutes);
 
 // Connect to MongoDB and start node server if successful
 mongoose
@@ -41,5 +36,5 @@ mongoose
 		});
 	})
 	.catch((error) => {
-		console.log(error);
+		console.error(error);
 	});

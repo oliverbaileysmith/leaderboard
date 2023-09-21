@@ -9,7 +9,7 @@ const Home = () => {
 
 	// Fetch all scores on page setup
 	useEffect(() => {
-		fetch("http://localhost:5555/scores/")
+		fetch("http://localhost:5555/api/scores/")
 		.then(res => {
 			if (!res.ok)
 				throw new Error("Network error.");

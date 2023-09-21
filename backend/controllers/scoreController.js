@@ -1,10 +1,8 @@
-import express from "express";
 import { Score } from "../models/scoreModel.js";
 
-const router = express.Router();
-
 // Get all scores, recent first
-router.get("/", async (req, res) => {
+// GET /api/scores/
+const getRecentScores = async (req, res) => {
 	try {
 		// Get all documents sorted by time updated, descending
 		const scoresDocuments = await Score.find({}).sort({updatedAt: -1});
@@ -17,10 +15,11 @@ router.get("/", async (req, res) => {
 		console.log(error);
 		res.status(500).send({message: error.message});
 	}
-});
+};
 
 // Get all scores for a user, highest first
-router.get("/user/:username", async (req, res) => {
+// GET /api/scores/user/:username
+const getUserScores = async (req, res) => {
 	try {
 		// Get username from request
 		const { username } = req.params;
@@ -36,10 +35,11 @@ router.get("/user/:username", async (req, res) => {
 		console.log(error);
 		res.status(500).send({message: error.message});
 	}
-});
+};
 
 // Get all scores for a level, highest first
-router.get("/level/:level", async (req, res) => {
+// GET /api/scores/level/:level
+const getLevelScores = async (req, res) => {
 	try {
 		// Get level from request
 		const { level } = req.params;
@@ -55,10 +55,11 @@ router.get("/level/:level", async (req, res) => {
 		console.log(error);
 		res.status(500).send({message: error.message});
 	}
-});
+};
 
 // Save a new score
-router.post("/", async (req, res) => {
+// POST /api/scores/
+const newScore = async (req, res) => {
 	try {
 		// Ensure required fields are present
 		if (!req.body.username || !req.body.score || !req.body.level) {
@@ -82,10 +83,11 @@ router.post("/", async (req, res) => {
 		console.log(error);
 		res.status(500).send({message: error.message});
 	}
-});
+};
 
 // Update a score
-router.put("/:id", async (req, res) => {
+// PUT /api/scores/:id
+const updateScore = async (req, res) => {
 	try {
 		// Ensure required fields are present
 		if (!req.body.username || !req.body.score || !req.body.level) {
@@ -109,10 +111,11 @@ router.put("/:id", async (req, res) => {
 		console.log(error);
 		res.status(500).send({message: error.message});
 	}
-});
+};
 
 // Delete a score
-router.delete("/:id", async (req, res) => {
+// DELETE /api/scores/:id
+const deleteScore = async (req, res) => {
 	try {
 		// Get id from request
 		const { id } = req.params;
@@ -129,6 +132,13 @@ router.delete("/:id", async (req, res) => {
 		console.log(error);
 		res.status(500).send({message: error.message});
 	}
-});
+};
 
-export default router;
+export {
+	getRecentScores,
+	getUserScores,
+	getLevelScores,
+	newScore,
+	updateScore,
+	deleteScore
+};
