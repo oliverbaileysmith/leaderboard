@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Routes, Route} from "react-router-dom";
 
 import Home from "./pages/Home.jsx";
@@ -10,9 +10,19 @@ import Login from "./pages/Login.jsx";
 
 import Header from "./components/Header.jsx";
 
+import UserContext from "./UserContext.jsx";
+
 const App = () => {
+	const updateUser = (user) => {
+		setUser(user);
+	};
+
+	const [user, setUser] = useState({
+		username: "Oliver"
+	});
+
 	return (
-	<>
+	<UserContext.Provider value={{...user, updateUser}}>
 		<Header />
 		<div className="flex justify-center bg-green-200">
 			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
@@ -26,7 +36,7 @@ const App = () => {
 				</Routes>
 			</div>
 		</div>
-	</>
+	</UserContext.Provider>
 	)
 };
 
