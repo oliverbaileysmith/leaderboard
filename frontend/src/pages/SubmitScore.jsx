@@ -31,7 +31,8 @@ const SubmitScore = () => {
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify(reqBody)
+			body: JSON.stringify(reqBody),
+			credentials: "include"
 		})
 		.then(res => {
 			if (!res.ok)

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 import ScoresTable from "../components/ScoresTable.jsx";
 
@@ -11,7 +11,14 @@ const User = () => {
 
 	// Fetch all scores on page setup
 	useEffect(() => {
-		fetch(`http://localhost:5555/api/scores${location.pathname}`)
+		fetch(`http://localhost:5555/api/scores${location.pathname}`,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			credentials: "include"
+		})
 		.then(res => {
 			if (!res.ok)
 				throw new Error("Network error.");
