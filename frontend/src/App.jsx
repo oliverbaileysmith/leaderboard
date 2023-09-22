@@ -5,6 +5,8 @@ import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
 import Level from "./pages/Level.jsx";
 import SubmitScore from "./pages/SubmitScore.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
 
 import Header from "./components/Header.jsx";
 
@@ -19,6 +21,8 @@ const App = () => {
 					<Route path="/submit" element={<SubmitScore />}/>
 					<Route path="/user/:username" element={<User />}/>
 					<Route path="/level/:level" element={<Level />}/>
+					<Route path="/register" element={<Register />}/>
+					<Route path="/login" element={<Login />}/>
 				</Routes>
 			</div>
 		</div>
