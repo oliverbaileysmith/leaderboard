@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
+
+import UserContext from "../UserContext.jsx";
 
 const Login = () => {
+	const userContext = useContext(UserContext);
 
 	const logIn = () => {
 		const reqBody = {
@@ -18,35 +21,20 @@ const Login = () => {
 		}).then(res => {
 			if (!res.ok)
 				throw new Error("Failed to log in");
+			return res.json();
 			console.log(res.json());
-		}).catch(error => {
+		}).then(userData => {
+			userContext.updateUser({
+				_id: userData._id,
+				username: userData.username
+			});
+		})
+		.catch(error => {
 			console.error(error.message);
 		});
 	};
 
-	const getProfile = () => {
-		fetch("http://localhost:5555/api/users/profile",
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			credentials: "include"
-		}).then(res => {
-			if (!res.ok)
-				throw new Error("Failed to get profile");
-			console.log(res.json());
-		}).catch(error => {
-			console.error(error.message);
-		});
-	};
-
-	return (
-		<>
-			<button onClick={logIn}>login</button>
-			<button onClick={getProfile}>profile</button>
-		</>
-	)
+	return <button onClick={logIn}>login</button>
 };
 
 export default Login;

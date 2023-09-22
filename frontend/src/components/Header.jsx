@@ -6,12 +6,6 @@ import UserContext from "../UserContext.jsx";
 const Header = () => {
 	const userContext = useContext(UserContext);
 
-	const updateContext = () => {
-		userContext.updateUser({
-			username: "Gary"
-		});
-	};
-
 	return (
 		<header className="flex justify-center bg-red-100">
 			<ul>

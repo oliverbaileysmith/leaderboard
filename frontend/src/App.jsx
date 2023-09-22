@@ -17,9 +17,7 @@ const App = () => {
 		setUser(user);
 	};
 
-	const [user, setUser] = useState({
-		username: "Oliver"
-	});
+	const [user, setUser] = useState({});
 
 	return (
 	<UserContext.Provider value={{...user, updateUser}}>
