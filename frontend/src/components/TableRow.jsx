@@ -9,7 +9,7 @@ const TableRow = (props) => {
 		tdClasses += " hidden";
 
 	return (
-		<tr className="max-w-6xl border-y drop-shadow-md hover:bg-slate-200">
+		<tr className="border-y drop-shadow-md hover:bg-slate-200">
 
 			<td className={tdClasses}>
 				{props.rank}

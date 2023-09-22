@@ -53,57 +53,53 @@ const SubmitScore = () => {
 	}
 
 	return (
-		<div className="flex justify-center">
-			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
+		<>
+			<form onSubmit={(e) => handleSubmit(e)}>
+				<label htmlFor="username">Username: </label>
+				<input
+					type="text"
+					id="username"
+					name="username"
+					value={username}
+					onChange={ (e)=>setUsername(e.target.value) }
+				/>
+				<br/>
 
-				<form onSubmit={(e) => handleSubmit(e)}>
-					<label htmlFor="username">Username: </label>
-					<input
-						type="text"
-						id="username"
-						name="username"
-						value={username}
-						onChange={ (e)=>setUsername(e.target.value) }
-					/>
-					<br/>
+				<label htmlFor="score">Score: </label>
+				<input
+					type="text"
+					id="score"
+					name="score"
+					value={score}
+					onChange={ (e)=>setScore(e.target.value) }
+				/>
+				<br/>
 
-					<label htmlFor="score">Score: </label>
-					<input
-						type="text"
-						id="score"
-						name="score"
-						value={score}
-						onChange={ (e)=>setScore(e.target.value) }
-					/>
-					<br/>
+				<label htmlFor="level">Level: </label>
+				<input
+					type="text"
+					id="level"
+					name="level"
+					value={level}
+					onChange={ (e)=>setLevel(e.target.value) }
+				/>
+				<br/>
 
-					<label htmlFor="level">Level: </label>
-					<input
-						type="text"
-						id="level"
-						name="level"
-						value={level}
-						onChange={ (e)=>setLevel(e.target.value) }
-					/>
-					<br/>
+				<input
+					type="submit"
+					value="Submit score"
+					disabled={
+						username.length === 0 ||
+						score.length === 0 ||
+						level.length === 0 ||
+						status === "submitting"
+					}
+				/>
+			</form>
 
-					<input
-						type="submit"
-						value="Submit score"
-						disabled={
-							username.length === 0 ||
-							score.length === 0 ||
-							level.length === 0 ||
-							status === "submitting"
-						}
-					/>
-				</form>
-
-				{/* TODO: improve error handling*/}
-				{error ? <p>Error: {error}</p> : null}
-
-			</div>
-		</div>
+			{/* TODO: improve error handling*/}
+			{error ? <p>Error: {error}</p> : null}
+		</>
 	)
 }
 
