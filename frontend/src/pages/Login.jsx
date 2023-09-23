@@ -30,7 +30,6 @@ const Login = () => {
 					username: userData.username
 				}
 			});
-			console.log(loginContext);
 		})
 		.catch(error => {
 			console.error(error.message);
