@@ -24,7 +24,7 @@ const getUserScores = async (req, res, next) => {
 		const { username } = req.params;
 
 		// Find scores for that user
-		const scoresDocuments = await Score.find({username}).sort({score: -1});
+		const scoresDocuments = await Score.find({username}).sort({updatedAt: -1});
 
 		return res.status(200).json({
 			count: scoresDocuments.length,
