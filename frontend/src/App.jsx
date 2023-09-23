@@ -10,17 +10,19 @@ import Login from "./pages/Login.jsx";
 
 import Header from "./components/Header.jsx";
 
-import UserContext from "./UserContext.jsx";
+import LoginContext from "./LoginContext.jsx";
 
 const App = () => {
-	const updateUser = (user) => {
-		setUser(user);
+	const updateLogin = (data) => {
+		setIsLoggedIn(data.isLoggedIn);
+		setUser(data.user);
 	};
 
 	const [user, setUser] = useState({});
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	return (
-	<UserContext.Provider value={{...user, updateUser}}>
+	<LoginContext.Provider value={{isLoggedIn, user, updateLogin}}>
 		<Header />
 		<div className="flex justify-center bg-green-200">
 			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
@@ -34,7 +36,7 @@ const App = () => {
 				</Routes>
 			</div>
 		</div>
-	</UserContext.Provider>
+	</LoginContext.Provider>
 	)
 };
 

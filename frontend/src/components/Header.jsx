@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import {NavLink} from "react-router-dom";
 
-import UserContext from "../UserContext.jsx";
+import LoginContext from "../LoginContext.jsx";
 
 const Header = () => {
-	const userContext = useContext(UserContext);
+	const loginContext = useContext(LoginContext);
 
 	return (
 		<header className="flex justify-center bg-red-100">
@@ -33,8 +33,8 @@ const Header = () => {
 					</NavLink>
 				</li>
 
-				<li>
-					<h2>{userContext.username}</h2>
+				<li className="inline">
+					<h2 className="inline">{loginContext.isLoggedIn ? loginContext.user.username : "No user"}</h2>
 				</li>
 			</ul>
 		</header>

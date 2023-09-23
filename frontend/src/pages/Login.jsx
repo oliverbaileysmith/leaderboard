@@ -1,9 +1,9 @@
 import React, {useContext} from "react";
 
-import UserContext from "../UserContext.jsx";
+import LoginContext from "../LoginContext.jsx";
 
 const Login = () => {
-	const userContext = useContext(UserContext);
+	const loginContext = useContext(LoginContext);
 
 	const logIn = () => {
 		const reqBody = {
@@ -22,12 +22,15 @@ const Login = () => {
 			if (!res.ok)
 				throw new Error("Failed to log in");
 			return res.json();
-			console.log(res.json());
 		}).then(userData => {
-			userContext.updateUser({
-				_id: userData._id,
-				username: userData.username
+			loginContext.updateLogin({
+				isLoggedIn: true,
+				user: {
+					_id: userData._id,
+					username: userData.username
+				}
 			});
+			console.log(loginContext);
 		})
 		.catch(error => {
 			console.error(error.message);
