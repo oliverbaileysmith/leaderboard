@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+
+import LoginContext from "../LoginContext.jsx";
 
 const SubmitScore = () => {
-	const [username, setUsername] = useState("");
 	const [score, setScore] = useState("");
 	const [level, setLevel] = useState("");
+
+	const loginContext = useContext(LoginContext);
 
 	// Status options are typing, submitting, success
 	const [status, setStatus] = useState("typing");
@@ -20,7 +23,7 @@ const SubmitScore = () => {
 
 	const trySubmit = () => {
 		const reqBody = {
-			username: username,
+			username: loginContext.user.username,
 			score: score,
 			level: level
 		};
@@ -36,12 +39,11 @@ const SubmitScore = () => {
 		})
 		.then(res => {
 			if (!res.ok)
-				throw new Error("Network error.");
+				throw new Error("Failed to submit score");
 			return res.json();
 		})
 		.then(data => {
 			setStatus("success");
-			setUsername("");
 			setScore("");
 			setLevel("");
 			setError(null);
@@ -55,17 +57,8 @@ const SubmitScore = () => {
 
 	return (
 		<>
+			<h1>Handle user not logged in on frontend</h1>
 			<form onSubmit={(e) => handleSubmit(e)}>
-				<label htmlFor="username">Username: </label>
-				<input
-					type="text"
-					id="username"
-					name="username"
-					value={username}
-					onChange={ (e)=>setUsername(e.target.value) }
-				/>
-				<br/>
-
 				<label htmlFor="score">Score: </label>
 				<input
 					type="text"
@@ -90,7 +83,6 @@ const SubmitScore = () => {
 					type="submit"
 					value="Submit score"
 					disabled={
-						username.length === 0 ||
 						score.length === 0 ||
 						level.length === 0 ||
 						status === "submitting"
