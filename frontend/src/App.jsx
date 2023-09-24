@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Routes, Route} from "react-router-dom";
 
 import Home from "./pages/Home.jsx";
@@ -20,6 +20,30 @@ const App = () => {
 
 	const [user, setUser] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	// Get user info upon app startup
+	useEffect(() => {
+		fetch("http://localhost:5555/api/users/profile",
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			credentials: "include"
+		})
+		.then(res => {
+			if (!res.ok)
+				throw new Error("User was not logged in");
+			return res.json();
+		}).then(userData => {
+			setIsLoggedIn(true);
+			setUser({
+				_id: userData._id,
+				username: userData.username
+			});
+		})
+		.catch(error => console.error(error.message));
+	}, []);
 
 	return (
 	<LoginContext.Provider value={{isLoggedIn, user, updateLogin}}>
