@@ -1,5 +1,7 @@
 import React, {useState, useContext} from "react";
 
+import FormInput from "../components/FormInput.jsx"
+
 import LoginContext from "../LoginContext.jsx";
 
 const SubmitScore = () => {
@@ -59,26 +61,20 @@ const SubmitScore = () => {
 		<>
 			<h1>Handle user not logged in on frontend</h1>
 			<form onSubmit={(e) => handleSubmit(e)}>
-				<label htmlFor="score">Score: </label>
-				<input
+				<FormInput
 					type="text"
-					id="score"
+					label="Score"
 					name="score"
 					value={score}
-					onChange={ (e)=>setScore(e.target.value) }
+					setter={setScore}
 				/>
-				<br/>
-
-				<label htmlFor="level">Level: </label>
-				<input
+				<FormInput
 					type="text"
-					id="level"
+					label="Level"
 					name="level"
 					value={level}
-					onChange={ (e)=>setLevel(e.target.value) }
+					setter={setLevel}
 				/>
-				<br/>
-
 				<input
 					type="submit"
 					value="Submit score"
