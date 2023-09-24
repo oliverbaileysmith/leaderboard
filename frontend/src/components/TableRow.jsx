@@ -20,7 +20,7 @@ const TableRow = (props) => {
 	}
 
 	return (
-		<tr className="border-y drop-shadow-md hover:bg-slate-200 group/name">
+		<tr className="border-y drop-shadow-md hover:bg-slate-200 group/row">
 
 			<td className="text-center py-1.5">
 				<span className={rankClasses}>{props.rank}</span>
@@ -49,14 +49,19 @@ const TableRow = (props) => {
 			</td>
 
 			<td className="text-center py-1.5">
-				{relativeTimeString}
+				<span className="group/tooltip relative">
+					{relativeTimeString}
+					<span className="invisible group-hover/tooltip:visible absolute w-44 bottom-full left-1/2 bg-slate-700 text-white font-light rounded mb-1.5 py px-2" style={{marginLeft: "-88px"}}>
+						{dayjs(s.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
+					</span>
+				</span>
 			</td>
 
 			<td className="text-center py-1.5">
 				{loginContext.user.username === s.username ? (
 					<Link
 						to={`/edit/${s._id}`}
-						className="hover:underline invisible group-hover/name:visible"
+						className="hover:underline invisible group-hover/row:visible"
 					>
 						Edit
 					</Link>
