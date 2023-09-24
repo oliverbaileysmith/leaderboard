@@ -67,6 +67,7 @@ const SubmitScore = () => {
 					name="score"
 					value={score}
 					setter={setScore}
+					disabled={false}
 				/>
 				<FormInput
 					type="text"
@@ -74,10 +75,11 @@ const SubmitScore = () => {
 					name="level"
 					value={level}
 					setter={setLevel}
+					disabled={false}
 				/>
-				<input
+				<FormInput
 					type="submit"
-					value="Submit score"
+					label="Submit"
 					disabled={
 						score.length === 0 ||
 						level.length === 0 ||
