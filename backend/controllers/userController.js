@@ -59,7 +59,8 @@ const logInUser = asyncWrap(async (req, res, next) => {
 const logOutUser = asyncWrap(async (req, res, next) => {
 	res.cookie("jwt", "", {
 		httpOnly: true,
-		expires: new Date(0)
+		expires: new Date(0),
+		sameSite: "strict"
 	});
 
 	res.status(200).json({ message: "User logged out"});
