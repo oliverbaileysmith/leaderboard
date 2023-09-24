@@ -1,14 +1,24 @@
-import React, {useContext} from "react";
+import React, {useState, useContext} from "react";
+
+import FormInput from "../components/FormInput.jsx"
 
 import LoginContext from "../LoginContext.jsx";
 
 const Login = () => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+
 	const loginContext = useContext(LoginContext);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		logIn();
+	}
 
 	const logIn = () => {
 		const reqBody = {
-			username: "oliver",
-			password: "123456"
+			username,
+			password
 		};
 		fetch("http://localhost:5555/api/users/login",
 		{
@@ -30,13 +40,42 @@ const Login = () => {
 					username: userData.username
 				}
 			});
+			setUsername("");
+			setPassword("");
 		})
 		.catch(error => {
 			console.error(error.message);
 		});
 	};
 
-	return <button onClick={logIn}>login</button>
+	return (
+		<form onSubmit={(e) => handleSubmit(e)}>
+			<FormInput
+				type="text"
+				label="Username"
+				name="username"
+				value={username}
+				setter={setUsername}
+				disabled={false}
+			/>
+			<FormInput
+				type="password"
+				label="Password"
+				name="password"
+				value={password}
+				setter={setPassword}
+				disabled={false}
+			/>
+			<FormInput
+				type="submit"
+				label="Log in"
+				disabled={
+					username.length === 0 ||
+					password.length === 0
+				}
+			/>
+		</form>
+	)
 };
 
 export default Login;
