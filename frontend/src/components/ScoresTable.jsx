@@ -5,17 +5,19 @@ import TableRow from "../components/TableRow.jsx";
 const ScoresTable = (props) => {
 	// Incremented while mapping
 	let rank = 1;
-	let thRankClasses = "";
+	let rankClasses = "";
 
 	if (!props.showRank)
-		thRankClasses += "hidden";
+		rankClasses += "invisible";
 
 	return (
 		<table className="w-full">
 
 			<thead>
 				<tr>
-					<th className={thRankClasses}>#</th>
+					<th>
+						<span className={rankClasses}>#</span>
+					</th>
 					<th>User</th>
 					<th>Score</th>
 					<th>Level</th>

@@ -1,22 +1,29 @@
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 
-import LoginContext from "../LoginContext.jsx"
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
+import LoginContext from "../LoginContext.jsx";
 
 const TableRow = (props) => {
 	const loginContext = useContext(LoginContext);
 
-	let s = props.data;
-	let tdClasses = "text-center py-1.5";
+	const s = props.data;
+	let rankClasses = "";
 
-	if (!props.showRank)
-		tdClasses += " hidden";
+	const relativeTimeString = dayjs(s.updatedAt).fromNow();
+
+	if (!props.showRank) {
+		rankClasses += " invisible";
+	}
 
 	return (
-		<tr className="border-y drop-shadow-md hover:bg-slate-200 group">
+		<tr className="border-y drop-shadow-md hover:bg-slate-200 group/name">
 
-			<td className={tdClasses}>
-				{props.rank}
+			<td className="text-center py-1.5">
+				<span className={rankClasses}>{props.rank}</span>
 			</td>
 
 			<td className="text-center py-1.5 font-semibold">
@@ -42,14 +49,14 @@ const TableRow = (props) => {
 			</td>
 
 			<td className="text-center py-1.5">
-				{s.updatedAt.substring(0,10)}
+				{relativeTimeString}
 			</td>
 
 			<td className="text-center py-1.5">
 				{loginContext.user.username === s.username ? (
 					<Link
 						to={`/edit/${s._id}`}
-						className="hover:underline invisible group-hover:visible"
+						className="hover:underline invisible group-hover/name:visible"
 					>
 						Edit
 					</Link>
