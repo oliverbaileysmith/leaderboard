@@ -10,6 +10,7 @@ const Button = (props) => {
 				disabled:hover:cursor-not-allowed
 				rounded
 				p-2
+				m-1
 				text-white
 				text-sm
 				font-semibold

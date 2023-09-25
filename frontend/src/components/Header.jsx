@@ -30,36 +30,42 @@ const Header = () => {
 	};
 
 	return (
-		<header className="flex justify-center bg-sky-600 text-white">
-			<div className="md:w-2/3">
-				<ul className="flex items-center my-1.5">
-					<HeaderItem link="/">
-						<h1 className="inline text-xl font-bold">Leaderboard</h1>
-					</HeaderItem>
-
-					<HeaderItem link="/submit">
-						<Button label="+"/>
-					</HeaderItem>
-
-					{loginContext.isLoggedIn ? (
-						<HeaderItem link="/submit">
-							<Button label="Log out" onClick={logOut}/>
+		<header className="flex flex-row justify-center bg-sky-600 text-white">
+			<div className="w-full md:w-2/3">
+				<ul className="flex flex-row justify-between items-center mx-2 my-1">
+					<div>
+						<HeaderItem link="/">
+							<h1 className="inline text-xl font-bold">Leaderboard</h1>
 						</HeaderItem>
-					) : (
-						<>
-							<HeaderItem link="/login">
-								<Button label="Log in"/>
-							</HeaderItem>
 
-							<HeaderItem link="/register">
-								<Button label="Sign up"/>
-							</HeaderItem>
-						</>
-					)}
+						<HeaderItem link="/submit">
+							<Button label="+"/>
+						</HeaderItem>
+					</div>
 
-					<HeaderItem>
-						<p className="inline">{loginContext.isLoggedIn && loginContext.user.username}</p>
-					</HeaderItem>
+					<div>
+						{loginContext.isLoggedIn ? (
+							<>
+								<HeaderItem>
+									<p className="inline">{loginContext.user.username}</p>
+								</HeaderItem>
+								<HeaderItem link="/submit">
+									<Button label="Log out" onClick={logOut}/>
+								</HeaderItem>
+							</>
+						) : (
+							<>
+								<HeaderItem link="/login">
+									<Button label="Log in"/>
+								</HeaderItem>
+
+								<HeaderItem link="/register">
+									<Button label="Sign up"/>
+								</HeaderItem>
+							</>
+						)}
+
+					</div>
 				</ul>
 			</div>
 		</header>
