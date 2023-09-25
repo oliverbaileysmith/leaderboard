@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 
 import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
@@ -58,6 +58,7 @@ const App = () => {
 					<Route path="/level/:level" element={<Level />}/>
 					<Route path="/register" element={<Register />}/>
 					<Route path="/login" element={<Login />}/>
+					<Route path="*" element={<Navigate to="/" />}/>
 				</Routes>
 			</div>
 		</div>
