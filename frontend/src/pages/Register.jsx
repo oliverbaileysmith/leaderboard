@@ -9,51 +9,62 @@ const Register = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 
+	// Records whether input has been focused and unfocused at least once
+	const [usernameBlurred, setUsernameBlurred] = useState(false);
+	const [passwordBlurred, setPasswordBlurred] = useState(false);
+	const [confirmPasswordBlurred, setConfirmPasswordBlurred] = useState(false);
+
 	useEffect(() => {
 		// Ensure username 8-32 characters
 		// Ensure username is alphanumeric only
 		// Set error otherwise
-		let usernameValid = true;
+		if (usernameBlurred) {
+			let usernameValid = true;
 
-		for (let i = 0; i < username.length; i++) {
-			const c = username.charCodeAt(i);
-			if (c > 122 || (c < 97 && c > 90) || (c < 65 && c > 57) || c < 48)
-				usernameValid = false;
+			for (let i = 0; i < username.length; i++) {
+				const c = username.charCodeAt(i);
+				if (c > 122 || (c < 97 && c > 90) || (c < 65 && c > 57) || c < 48)
+					usernameValid = false;
+			}
+
+			if (usernameValid && (username.length > 7 && username.length < 33) || username.length === 0)
+				setUsernameError("");
+			else
+				setUsernameError("Username must be 8-32 characters, letters/numbers only.");
 		}
-
-		if (usernameValid && (username.length > 7 && username.length < 33) || username.length === 0)
-			setUsernameError("");
-		else
-			setUsernameError("Username must be 8-32 characters, letters/numbers only.");
 
 		// Ensure password 8-32 characters
 		// Ensure username is alphanumeric only
 		// Set error otherwise
-		let passwordValid = true;
+		if (passwordBlurred) {
+			let passwordValid = true;
 
-		for (let i = 0; i < password.length; i++) {
-			const c = password.charCodeAt(i);
-			if (c > 122 || (c < 97 && c > 90) || (c < 65 && c > 57) || c < 48)
-				passwordValid = false;
+			for (let i = 0; i < password.length; i++) {
+				const c = password.charCodeAt(i);
+				if (c > 122 || (c < 97 && c > 90) || (c < 65 && c > 57) || c < 48)
+					passwordValid = false;
+			}
+
+			if (passwordValid && (password.length > 7 && password.length < 33) || password.length === 0)
+				setPasswordError("");
+			else
+				setPasswordError("Password must be 8-32 characters, letters/numbers only.");
 		}
-
-		if (passwordValid && (password.length > 7 && password.length < 33) || password.length === 0)
-			setPasswordError("");
-		else
-			setPasswordError("Password must be 8-32 characters, letters/numbers only.");
 
 		// Ensure confirm password matches password
 		// Set error otherwise
-		let passwordsMatch = true;
+		if (confirmPasswordBlurred) {
+			let passwordsMatch = true;
 
-		if (password !== confirmPassword)
-			passwordsMatch = false;
+			if (password !== confirmPassword)
+				passwordsMatch = false;
 
-		if (confirmPassword.length === 0 || passwordsMatch)
-			setConfirmPasswordError("");
-		else
-			setConfirmPasswordError("Passwords do not match.");
-	}, [username, password, confirmPassword]);
+			if (confirmPassword.length === 0 || passwordsMatch)
+				setConfirmPasswordError("");
+			else
+				setConfirmPasswordError("Passwords do not match.");
+		}
+	}, [username, password, confirmPassword, usernameBlurred, passwordBlurred, confirmPasswordBlurred]);
 	const loginContext = useContext(LoginContext);
 
 	// Status options are typing, submitting
@@ -121,6 +132,7 @@ const Register = () => {
 					name="username"
 					value={username}
 					setter={setUsername}
+					onBlur={() => setUsernameBlurred(true)}
 					disabled={false}
 					error={usernameError}
 				/>
@@ -130,6 +142,7 @@ const Register = () => {
 					name="password"
 					value={password}
 					setter={setPassword}
+					onBlur={() => setPasswordBlurred(true)}
 					disabled={false}
 					error={passwordError}
 				/>
@@ -139,6 +152,7 @@ const Register = () => {
 					name="confirmPassword"
 					value={confirmPassword}
 					setter={setConfirmPassword}
+					onBlur={() => setConfirmPasswordBlurred(true)}
 					disabled={false}
 					error={confirmPasswordError}
 				/>
