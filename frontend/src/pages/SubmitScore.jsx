@@ -12,7 +12,7 @@ const SubmitScore = () => {
 
 	// Status options are typing, submitting, success
 	const [status, setStatus] = useState("typing");
-	const [error, setError] = useState(null);
+	const [errors, setErrors] = useState(["", "", ""]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -48,14 +48,18 @@ const SubmitScore = () => {
 			setStatus("success");
 			setScore("");
 			setLevel("");
-			setError(null);
+			setErrors(["", "", ""]);
 		})
 		.catch(error => {
-			setError(error.message);
-			console.error(error.message);
+			setErrors(errors.map((e, i) => {
+				if (i === 2) {
+					return error.message;
+				}
+				return e;
+			}));
 			setStatus("typing");
 		});
-	}
+	};
 
 	return (
 		<>
@@ -68,6 +72,7 @@ const SubmitScore = () => {
 					value={score}
 					setter={setScore}
 					disabled={false}
+					error={errors[0]}
 				/>
 				<FormInput
 					type="text"
@@ -76,6 +81,7 @@ const SubmitScore = () => {
 					value={level}
 					setter={setLevel}
 					disabled={false}
+					error={errors[1]}
 				/>
 				<FormInput
 					type="submit"
@@ -87,9 +93,7 @@ const SubmitScore = () => {
 					}
 				/>
 			</form>
-
-			{/* TODO: improve error handling*/}
-			{error ? <p>Error: {error}</p> : null}
+			<p className="text-xs">{errors[2]}</p>
 		</>
 	)
 }

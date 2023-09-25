@@ -22,6 +22,7 @@ const FormInput = (props) => {
 					disabled={props.disabled}
 					className="block"
 				/>
+				<p className="inline text-xs">{props.error}</p>
 			</>
 		)
 	}
