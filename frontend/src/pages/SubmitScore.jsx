@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useEffect, useContext} from "react";
 
 import FormInput from "../components/FormInput.jsx"
 
@@ -8,11 +8,33 @@ const SubmitScore = () => {
 	const [score, setScore] = useState("");
 	const [level, setLevel] = useState("");
 
+	useEffect(() => {
+		// Ensure score input only contains numbers, set error if not
+		for (let i = 0; i < score.length; i++) {
+			const c = score.charCodeAt(i);
+			if (c < 48 || c > 57)
+				setError("Score must consist of numbers only.", 0);
+			else
+				setError("", 0);
+		}
+
+		if (score.length === 0)
+			setError("", 0);
+	}, [score]);
+
 	const loginContext = useContext(LoginContext);
 
 	// Status options are typing, submitting, success
 	const [status, setStatus] = useState("typing");
 	const [errors, setErrors] = useState(["", "", ""]);
+
+	const setError = (errorText, index) => {
+		setErrors(errors.map((e, i) => {
+			if (i === index)
+				return errorText;
+			return e;
+		}));
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -41,7 +63,7 @@ const SubmitScore = () => {
 		})
 		.then(res => {
 			if (!res.ok)
-				throw new Error("Failed to submit score");
+				throw new Error("Failed to submit score. Please try again.");
 			return res.json();
 		})
 		.then(data => {
@@ -89,11 +111,13 @@ const SubmitScore = () => {
 					disabled={
 						score.length === 0 ||
 						level.length === 0 ||
-						status === "submitting"
+						status === "submitting" ||
+						errors[0] !== "" ||
+						errors[1] !== ""
 					}
 				/>
 			</form>
-			<p className="text-xs">{errors[2]}</p>
+			<p className="text-xs text-pink-700">{errors[2]}</p>
 		</>
 	)
 }
