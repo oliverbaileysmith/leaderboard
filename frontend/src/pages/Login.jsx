@@ -1,4 +1,5 @@
 import React, {useState, useContext} from "react";
+import {Navigate} from "react-router-dom"
 
 import FormInput from "../components/FormInput.jsx"
 
@@ -57,6 +58,9 @@ const Login = () => {
 
 		setStatus("typing");
 	}
+
+	if (loginContext.isLoggedIn)
+		return <Navigate to="/" />
 
 	return (
 		<>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
+import {Link} from "react-router-dom";
 
 import FormInput from "../components/FormInput.jsx"
 
@@ -72,9 +73,21 @@ const SubmitScore = () => {
 		setStatus("typing");
 	}
 
+	if (!loginContext.isLoggedIn)
+		return (
+			<>
+				<p>Please log in to submit a score.</p>
+				<Link to="/login">
+					<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Log in</button>
+				</Link>
+				<Link to="/register">
+					<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Sign up</button>
+				</Link>
+			</>
+		)
+
 	return (
 		<>
-			<h1>Handle user not logged in on frontend</h1>
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<FormInput
 					type="text"
