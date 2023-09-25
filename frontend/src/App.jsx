@@ -5,6 +5,7 @@ import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
 import Level from "./pages/Level.jsx";
 import SubmitScore from "./pages/SubmitScore.jsx";
+import EditScore from "./pages/EditScore.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 
@@ -53,9 +54,10 @@ const App = () => {
 			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
 				<Routes>
 					<Route path="/" element={<Home />}/>
-					<Route path="/submit" element={<SubmitScore />}/>
 					<Route path="/user/:username" element={<User />}/>
 					<Route path="/level/:level" element={<Level />}/>
+					<Route path="/submit" element={<SubmitScore />}/>
+					<Route path="/edit/:id" element={<EditScore />}/>
 					<Route path="/register" element={<Register />}/>
 					<Route path="/login" element={<Login />}/>
 					<Route path="*" element={<Navigate to="/" />}/>
