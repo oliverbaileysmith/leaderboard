@@ -51,7 +51,7 @@ const TableRow = (props) => {
 			<td className="text-center py-1.5">
 				<span className="group/tooltip relative">
 					{relativeTimeString}
-					<span className="invisible group-hover/tooltip:visible absolute w-44 bottom-full left-1/2 bg-sky-900 text-white font-light rounded mb-1.5 py px-2" style={{marginLeft: "-88px"}}>
+					<span className="absolute right-[105%] rounded px-2 invisible group-hover/tooltip:visible bg-sky-900 text-white font-light">
 						{dayjs(s.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
 					</span>
 				</span>
