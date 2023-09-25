@@ -38,12 +38,6 @@ const SubmitScore = () => {
 		e.preventDefault();
 		setStatus("submitting");
 
-		trySubmit();
-
-		setStatus("typing");
-	}
-
-	const trySubmit = () => {
 		const reqBody = {
 			username: loginContext.user.username,
 			score: score,
@@ -79,7 +73,9 @@ const SubmitScore = () => {
 				return e;
 			}));
 		});
-	};
+
+		setStatus("typing");
+	}
 
 	return (
 		<>
