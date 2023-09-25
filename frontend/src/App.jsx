@@ -31,7 +31,11 @@ const App = () => {
 			},
 			credentials: "include"
 		})
-		.then(res => res.json())
+		.then(res => {
+			if (!res.ok)
+				throw new Error("No JWT cookie");
+			return res.json();
+		})
 		.then(userData => {
 			setIsLoggedIn(true);
 			setUser({
@@ -39,7 +43,7 @@ const App = () => {
 				username: userData.username
 			});
 		})
-		.catch(error => console.error(error.message));
+		.catch(error => {});
 	}, []);
 
 	return (
