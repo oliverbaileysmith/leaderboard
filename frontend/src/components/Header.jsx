@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 
 import LoginContext from "../LoginContext.jsx";
 
+import HeaderItem from "./HeaderItem.jsx"
 import Button from "./Button.jsx";
 
 const Header = () => {
@@ -30,45 +31,34 @@ const Header = () => {
 
 	return (
 		<header className="flex justify-center bg-sky-600 text-white">
-			<ul className="my-1.5">
-				<li className="inline">
-					<NavLink to="/">
-						<h1 className="inline text-xl font-bold">Leaderboard</h1>
-					</NavLink>
-				</li>
+			<ul className="flex items-center my-1.5">
+				<HeaderItem link="/">
+					<h1 className="inline text-xl font-bold">Leaderboard</h1>
+				</HeaderItem>
 
-				<li className="inline">
-				</li>
-
-				<li className="inline">
-					<NavLink to="/submit">
-						<Button label="+"/>
-					</NavLink>
-				</li>
+				<HeaderItem link="/submit">
+					<Button label="+"/>
+				</HeaderItem>
 
 				{loginContext.isLoggedIn ? (
-					<li className="inline">
+					<HeaderItem link="/submit">
 						<Button label="Log out" onClick={logOut}/>
-					</li>
+					</HeaderItem>
 				) : (
 					<>
-						<li className="inline">
-							<NavLink to="/login">
-								<Button label="Log in"/>
-							</NavLink>
-						</li>
+						<HeaderItem link="/login">
+							<Button label="Log in"/>
+						</HeaderItem>
 
-						<li className="inline">
-							<NavLink to="/register">
-								<Button label="Sign up"/>
-							</NavLink>
-						</li>
+						<HeaderItem link="/register">
+							<Button label="Sign up"/>
+						</HeaderItem>
 					</>
 				)}
 
-				<li className="inline">
+				<HeaderItem>
 					<p className="inline">{loginContext.isLoggedIn && loginContext.user.username}</p>
-				</li>
+				</HeaderItem>
 			</ul>
 		</header>
 	)
