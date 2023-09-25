@@ -4,6 +4,17 @@ const FormInput = (props) => {
 	if (props.type==="submit") {
 		return (
 			<input
+				className="
+					bg-sky-900
+					enabled:hover:bg-slate-800
+					enabled:hover:cursor-pointer
+					disabled:hover:cursor-not-allowed
+					rounded
+					p-2
+					text-white
+					text-sm
+					font-semibold
+				"
 				type={props.type}
 				value={props.label}
 				disabled={props.disabled}
