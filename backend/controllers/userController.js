@@ -13,7 +13,7 @@ const registerUser = asyncWrap(async (req, res, next) => {
 
 	if (userExists) {
 		res.status(400);
-		throw new Error("User already exists");
+		throw new Error("Username is taken, please try again.");
 	}
 
 	const user = await User.create({
@@ -29,7 +29,7 @@ const registerUser = asyncWrap(async (req, res, next) => {
 		});
 	} else {
 		res.status(400);
-		throw new Error("Invalid user data");
+		throw new Error("Invalid user data.");
 	}
 });
 

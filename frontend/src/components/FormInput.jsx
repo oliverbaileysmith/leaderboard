@@ -19,7 +19,10 @@ const FormInput = (props) => {
 					name={props.name}
 					value={props.value}
 					onChange={ (e)=>props.setter(e.target.value) }
-					onBlur={() => {if (props.value !== "") props.onBlur()}}
+					onBlur={props.OnBlur ? (
+					() => {if (props.value !== "") props.onBlur()}
+					) : () => {}
+					}
 					disabled={props.disabled}
 					className="block"
 				/>

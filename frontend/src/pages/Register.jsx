@@ -88,6 +88,8 @@ const Register = () => {
 			password
 		};
 
+		let resOk = true;
+
 		fetch("http://localhost:5555/api/users",
 		{
 			method: "POST",
@@ -98,9 +100,11 @@ const Register = () => {
 			credentials: "include"
 		}).then(res => {
 			if (!res.ok)
-				throw new Error("Failed to register");
+				resOk = false;
 			return res.json();
 		}).then(userData => {
+			if (!resOk)
+				throw new Error (userData.message);
 			loginContext.updateLogin({
 				isLoggedIn: true,
 				user: {
