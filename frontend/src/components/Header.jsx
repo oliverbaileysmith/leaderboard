@@ -31,35 +31,37 @@ const Header = () => {
 
 	return (
 		<header className="flex justify-center bg-sky-600 text-white">
-			<ul className="flex items-center my-1.5">
-				<HeaderItem link="/">
-					<h1 className="inline text-xl font-bold">Leaderboard</h1>
-				</HeaderItem>
-
-				<HeaderItem link="/submit">
-					<Button label="+"/>
-				</HeaderItem>
-
-				{loginContext.isLoggedIn ? (
-					<HeaderItem link="/submit">
-						<Button label="Log out" onClick={logOut}/>
+			<div className="md:w-2/3">
+				<ul className="flex items-center my-1.5">
+					<HeaderItem link="/">
+						<h1 className="inline text-xl font-bold">Leaderboard</h1>
 					</HeaderItem>
-				) : (
-					<>
-						<HeaderItem link="/login">
-							<Button label="Log in"/>
-						</HeaderItem>
 
-						<HeaderItem link="/register">
-							<Button label="Sign up"/>
-						</HeaderItem>
-					</>
-				)}
+					<HeaderItem link="/submit">
+						<Button label="+"/>
+					</HeaderItem>
 
-				<HeaderItem>
-					<p className="inline">{loginContext.isLoggedIn && loginContext.user.username}</p>
-				</HeaderItem>
-			</ul>
+					{loginContext.isLoggedIn ? (
+						<HeaderItem link="/submit">
+							<Button label="Log out" onClick={logOut}/>
+						</HeaderItem>
+					) : (
+						<>
+							<HeaderItem link="/login">
+								<Button label="Log in"/>
+							</HeaderItem>
+
+							<HeaderItem link="/register">
+								<Button label="Sign up"/>
+							</HeaderItem>
+						</>
+					)}
+
+					<HeaderItem>
+						<p className="inline">{loginContext.isLoggedIn && loginContext.user.username}</p>
+					</HeaderItem>
+				</ul>
+			</div>
 		</header>
 	)
 };

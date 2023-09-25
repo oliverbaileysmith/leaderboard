@@ -20,7 +20,7 @@ const TableRow = (props) => {
 	}
 
 	return (
-		<tr className="border-y drop-shadow-md hover:bg-slate-200 group/row">
+		<tr className="border-y odd:bg-slate-200 hover:bg-slate-300 group/row whitespace-nowrap">
 
 			<td className="text-center py-1.5">
 				<span className={rankClasses}>{props.rank}</span>
@@ -51,13 +51,13 @@ const TableRow = (props) => {
 			<td className="text-center py-1.5">
 				<span className="group/tooltip relative">
 					{relativeTimeString}
-					<span className="invisible group-hover/tooltip:visible absolute w-44 bottom-full left-1/2 bg-slate-700 text-white font-light rounded mb-1.5 py px-2" style={{marginLeft: "-88px"}}>
+					<span className="invisible group-hover/tooltip:visible absolute w-44 bottom-full left-1/2 bg-sky-900 text-white font-light rounded mb-1.5 py px-2" style={{marginLeft: "-88px"}}>
 						{dayjs(s.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
 					</span>
 				</span>
 			</td>
 
-			<td className="text-center py-1.5">
+			<td className="text-center p-0 m-0">
 				{loginContext.user.username === s.username ? (
 					<Link
 						to={`/edit/${s._id}`}

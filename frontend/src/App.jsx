@@ -49,19 +49,21 @@ const App = () => {
 
 	return (
 	<LoginContext.Provider value={{isLoggedIn, user, updateLogin}}>
-		<Header />
-		<div className="flex justify-center bg-green-200">
-			<div className="bg-slate-100 w-full mx-6 md:w-2/3 md:m-0">
-				<Routes>
-					<Route path="/" element={<Home />}/>
-					<Route path="/user/:username" element={<User />}/>
-					<Route path="/level/:level" element={<Level />}/>
-					<Route path="/submit" element={<SubmitScore />}/>
-					<Route path="/edit/:id" element={<EditScore />}/>
-					<Route path="/register" element={<Register />}/>
-					<Route path="/login" element={<Login />}/>
-					<Route path="*" element={<Navigate to="/" />}/>
-				</Routes>
+		<div className="w-screen h-screen md:h-full md:min-h-screen flex flex-col text-sm md:text-base">
+			<Header />
+			<div className="flex flex-row grow justify-center bg-slate-800">
+				<div className="w-full md:w-2/3 overflow-x-auto md:overflow-x-none bg-slate-100">
+					<Routes>
+						<Route path="/" element={<Home />}/>
+						<Route path="/user/:username" element={<User />}/>
+						<Route path="/level/:level" element={<Level />}/>
+						<Route path="/submit" element={<SubmitScore />}/>
+						<Route path="/edit/:id" element={<EditScore />}/>
+						<Route path="/register" element={<Register />}/>
+						<Route path="/login" element={<Login />}/>
+						<Route path="*" element={<Navigate to="/" />}/>
+					</Routes>
+				</div>
 			</div>
 		</div>
 	</LoginContext.Provider>

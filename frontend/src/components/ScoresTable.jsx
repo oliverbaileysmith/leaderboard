@@ -12,7 +12,6 @@ const ScoresTable = (props) => {
 
 	return (
 		<table className="w-full">
-
 			<thead>
 				<tr>
 					<th>
@@ -37,7 +36,6 @@ const ScoresTable = (props) => {
 					)
 				})}
 			</tbody>
-
 		</table>
 	)
 };
