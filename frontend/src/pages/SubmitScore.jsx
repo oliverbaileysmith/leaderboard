@@ -66,12 +66,7 @@ const SubmitScore = () => {
 			setFormError("");
 		})
 		.catch(error => {
-			setErrors(errors.map((e, i) => {
-				if (i === 2) {
-					return error.message;
-				}
-				return e;
-			}));
+			setFormError(error.message);
 		});
 
 		setStatus("typing");

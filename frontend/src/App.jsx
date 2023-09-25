@@ -31,11 +31,8 @@ const App = () => {
 			},
 			credentials: "include"
 		})
-		.then(res => {
-			if (!res.ok)
-				throw new Error("User was not logged in");
-			return res.json();
-		}).then(userData => {
+		.then(res => res.json())
+		.then(userData => {
 			setIsLoggedIn(true);
 			setUser({
 				_id: userData._id,
