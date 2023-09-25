@@ -10,33 +10,29 @@ const SubmitScore = () => {
 
 	useEffect(() => {
 		// Ensure score input only contains numbers, set error if not
-		let containsOnlyNumbers = true;
+		let valid = true;
 
 		for (let i = 0; i < score.length; i++) {
 			const c = score.charCodeAt(i);
 			if (c < 48 || c > 57)
-				containsOnlyNumbers = false;
+				valid = false;
 		}
 
-		if (containsOnlyNumbers || score.length === 0)
-			setError("", 0);
+		if (valid || score.length === 0)
+			setScoreError("");
 		else
-			setError("Score must consist of numbers only.", 0);
+			setScoreError("Score must consist of numbers only.");
 	}, [score]);
 
 	const loginContext = useContext(LoginContext);
 
-	// Status options are typing, submitting, success
+	// Status options are typing, submitting
 	const [status, setStatus] = useState("typing");
-	const [errors, setErrors] = useState(["", "", ""]);
 
-	const setError = (errorText, index) => {
-		setErrors(errors.map((e, i) => {
-			if (i === index)
-				return errorText;
-			return e;
-		}));
-	}
+	// Error for each input and overall form state
+	const [scoreError, setScoreError] = useState("");
+	const [levelError, setLevelError] = useState("");
+	const [formError, setFormError] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -69,10 +65,11 @@ const SubmitScore = () => {
 			return res.json();
 		})
 		.then(data => {
-			setStatus("success");
 			setScore("");
 			setLevel("");
-			setErrors(["", "", ""]);
+			setScoreError("");
+			setLevelError("");
+			setFormError("");
 		})
 		.catch(error => {
 			setErrors(errors.map((e, i) => {
@@ -81,7 +78,6 @@ const SubmitScore = () => {
 				}
 				return e;
 			}));
-			setStatus("typing");
 		});
 	};
 
@@ -96,7 +92,7 @@ const SubmitScore = () => {
 					value={score}
 					setter={setScore}
 					disabled={false}
-					error={errors[0]}
+					error={scoreError}
 				/>
 				<FormInput
 					type="text"
@@ -105,7 +101,7 @@ const SubmitScore = () => {
 					value={level}
 					setter={setLevel}
 					disabled={false}
-					error={errors[1]}
+					error={levelError}
 				/>
 				<FormInput
 					type="submit"
@@ -114,12 +110,12 @@ const SubmitScore = () => {
 						score.length === 0 ||
 						level.length === 0 ||
 						status === "submitting" ||
-						errors[0] !== "" ||
-						errors[1] !== ""
+						scoreError !== "" ||
+						levelError !== ""
 					}
 				/>
 			</form>
-			<p className="text-xs text-pink-700">{errors[2]}</p>
+			<p className="text-xs text-pink-700">{formError}</p>
 		</>
 	)
 }
