@@ -102,14 +102,14 @@ const Register = () => {
 			if (!res.ok)
 				resOk = false;
 			return res.json();
-		}).then(userData => {
+		}).then(res => {
 			if (!resOk)
-				throw new Error (userData.message);
+				throw new Error (res.message);
 			loginContext.updateLogin({
 				isLoggedIn: true,
 				user: {
-					_id: userData._id,
-					username: userData.username
+					_id: res._id,
+					username: res.username
 				}
 			});
 			setUsername("");

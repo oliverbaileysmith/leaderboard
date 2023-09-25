@@ -10,16 +10,21 @@ const Login = () => {
 
 	const loginContext = useContext(LoginContext);
 
+	// Status options are typing, submitting
+	const [status, setStatus] = useState("typing");
+
+	const [formError, setFormError] = useState("");
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		logIn();
-	}
+		setStatus("submitting");
 
-	const logIn = () => {
 		const reqBody = {
 			username,
 			password
 		};
+
+		let resOk = true;
 		fetch("http://localhost:5555/api/users/login",
 		{
 			method: "POST",
@@ -30,51 +35,60 @@ const Login = () => {
 			credentials: "include"
 		}).then(res => {
 			if (!res.ok)
-				throw new Error("Failed to log in");
+				resOk = false;
 			return res.json();
-		}).then(userData => {
+		}).then(res => {
+			if (!resOk)
+				throw new Error (res.message);
 			loginContext.updateLogin({
 				isLoggedIn: true,
 				user: {
-					_id: userData._id,
-					username: userData.username
+					_id: res._id,
+					username: res.username
 				}
 			});
 			setUsername("");
 			setPassword("");
+			setFormError("");
 		})
 		.catch(error => {
-			console.error(error.message);
+			setFormError(error.message);
 		});
-	};
+
+		setStatus("typing");
+	}
 
 	return (
-		<form onSubmit={(e) => handleSubmit(e)}>
-			<FormInput
-				type="text"
-				label="Username"
-				name="username"
-				value={username}
-				setter={setUsername}
-				disabled={false}
-			/>
-			<FormInput
-				type="password"
-				label="Password"
-				name="password"
-				value={password}
-				setter={setPassword}
-				disabled={false}
-			/>
-			<FormInput
-				type="submit"
-				label="Log in"
-				disabled={
-					username.length === 0 ||
-					password.length === 0
-				}
-			/>
-		</form>
+		<>
+			<form onSubmit={(e) => handleSubmit(e)}>
+				<FormInput
+					type="text"
+					label="Username"
+					name="username"
+					value={username}
+					setter={setUsername}
+					disabled={false}
+				/>
+				<FormInput
+					type="password"
+					label="Password"
+					name="password"
+					value={password}
+					setter={setPassword}
+					disabled={false}
+				/>
+				<FormInput
+					type="submit"
+					label="Log in"
+					disabled={
+						username.length === 0 ||
+						password.length === 0 ||
+						status === "submitting"
+					}
+				/>
+			</form>
+			<p className="text-xs text-pink-700">{formError}</p>
+		</>
 	)
 };
 
