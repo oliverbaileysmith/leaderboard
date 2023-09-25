@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from "react";
 import {Link} from "react-router-dom";
 
 import FormInput from "../components/FormInput.jsx"
+import Button from "../components/Button.jsx"
 
 import LoginContext from "../LoginContext.jsx";
 
@@ -78,10 +79,10 @@ const SubmitScore = () => {
 			<>
 				<p>Please log in to submit a score.</p>
 				<Link to="/login">
-					<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Log in</button>
+					<Button label="Log in"/>
 				</Link>
 				<Link to="/register">
-					<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Sign up</button>
+					<Button label="Sign up"/>
 				</Link>
 			</>
 		)

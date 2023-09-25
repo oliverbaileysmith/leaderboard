@@ -3,6 +3,8 @@ import {NavLink} from "react-router-dom";
 
 import LoginContext from "../LoginContext.jsx";
 
+import Button from "./Button.jsx";
+
 const Header = () => {
 	const loginContext = useContext(LoginContext);
 
@@ -23,14 +25,12 @@ const Header = () => {
 				user: {}
 			});
 		})
-		.catch(error => {
-			console.error(error.message);
-		});
+		.catch(error => {});
 	};
 
 	return (
-		<header className="flex justify-center bg-red-100">
-			<ul>
+		<header className="flex justify-center bg-sky-600 text-white">
+			<ul className="my-1.5">
 				<li className="inline">
 					<NavLink to="/">
 						<h1 className="inline text-xl font-bold">Leaderboard</h1>
@@ -38,33 +38,36 @@ const Header = () => {
 				</li>
 
 				<li className="inline">
+				</li>
+
+				<li className="inline">
 					<NavLink to="/submit">
-						<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Submit score</button>
+						<Button label="+"/>
 					</NavLink>
 				</li>
 
 				{loginContext.isLoggedIn ? (
 					<li className="inline">
-						<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button" onClick={logOut}>Log out</button>
+						<Button label="Log out" onClick={logOut}/>
 					</li>
 				) : (
 					<>
 						<li className="inline">
 							<NavLink to="/login">
-								<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Log in</button>
+								<Button label="Log in"/>
 							</NavLink>
 						</li>
 
 						<li className="inline">
 							<NavLink to="/register">
-								<button className="bg-slate-400 border-solid border-black border-2 rounded p-1 hover:bg-slate-600" type="button">Sign up</button>
+								<Button label="Sign up"/>
 							</NavLink>
 						</li>
 					</>
 				)}
 
 				<li className="inline">
-					<h2 className="inline">{loginContext.isLoggedIn ? loginContext.user.username : "No user"}</h2>
+					<p className="inline">{loginContext.isLoggedIn && loginContext.user.username}</p>
 				</li>
 			</ul>
 		</header>
