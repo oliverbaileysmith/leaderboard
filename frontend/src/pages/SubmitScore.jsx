@@ -10,16 +10,18 @@ const SubmitScore = () => {
 
 	useEffect(() => {
 		// Ensure score input only contains numbers, set error if not
+		let containsOnlyNumbers = true;
+
 		for (let i = 0; i < score.length; i++) {
 			const c = score.charCodeAt(i);
 			if (c < 48 || c > 57)
-				setError("Score must consist of numbers only.", 0);
-			else
-				setError("", 0);
+				containsOnlyNumbers = false;
 		}
 
-		if (score.length === 0)
+		if (containsOnlyNumbers || score.length === 0)
 			setError("", 0);
+		else
+			setError("Score must consist of numbers only.", 0);
 	}, [score]);
 
 	const loginContext = useContext(LoginContext);
