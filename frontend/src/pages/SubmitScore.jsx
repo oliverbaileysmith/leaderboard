@@ -89,7 +89,7 @@ const SubmitScore = () => {
 
 	return (
 		<>
-			<form onSubmit={(e) => handleSubmit(e)}>
+			<form className="flex flex-col items-center" onSubmit={(e) => handleSubmit(e)}>
 				<FormInput
 					type="text"
 					label="Score"

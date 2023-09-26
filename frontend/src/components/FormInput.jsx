@@ -22,7 +22,7 @@ const FormInput = (props) => {
 		)
 	} else {
 		return (
-			<>
+			<div>
 				<label htmlFor={props.name} className="block">{props.label}</label>
 				<input
 					type={props.type}
@@ -35,10 +35,10 @@ const FormInput = (props) => {
 							props.onBlur();
 					}}
 					disabled={props.disabled}
-					className="block mb-2"
+					className="block mb-2 w-48 rounded shadow-inner drop-shadow"
 				/>
 				{props.error && <p className="text-xs text-pink-700">{props.error}</p>}
-			</>
+			</div>
 		)
 	}
 };
