@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link} from "react-router-dom";
 
+import Form from "../components/Form.jsx"
 import FormInput from "../components/FormInput.jsx"
 import Button from "../components/Button.jsx"
 
@@ -76,20 +77,22 @@ const SubmitScore = () => {
 
 	if (!loginContext.isLoggedIn)
 		return (
-			<>
+			<div className="flex flex-col items-center mt-4">
 				<p>Please log in to submit a score.</p>
-				<Link to="/login">
-					<Button label="Log in"/>
-				</Link>
-				<Link to="/register">
-					<Button label="Sign up"/>
-				</Link>
-			</>
+				<div>
+					<Link to="/login">
+						<Button label="Log in"/>
+					</Link>
+					<Link to="/register">
+						<Button label="Sign up"/>
+					</Link>
+				</div>
+			</div>
 		)
 
 	return (
 		<>
-			<form className="flex flex-col items-center" onSubmit={(e) => handleSubmit(e)}>
+			<Form onSubmit={handleSubmit}>
 				<FormInput
 					type="text"
 					label="Score"
@@ -119,7 +122,7 @@ const SubmitScore = () => {
 						levelError !== ""
 					}
 				/>
-			</form>
+			</Form>
 			{formError && <p className="text-xs text-pink-700">{formError}</p>}
 		</>
 	)

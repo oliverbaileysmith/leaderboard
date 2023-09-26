@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Navigate} from "react-router-dom"
 
+import Form from "../components/Form.jsx"
 import FormInput from "../components/FormInput.jsx"
 
 import LoginContext from "../LoginContext.jsx";
@@ -31,7 +32,7 @@ const Register = () => {
 			if (usernameValid && (username.length > 7 && username.length < 33) || username.length === 0)
 				setUsernameError("");
 			else
-				setUsernameError("Username must be 8-32 characters, letters/numbers only.");
+				setUsernameError("Username must be 8-32 characters, letters and numbers only.");
 		}
 
 		// Ensure password 8-32 characters
@@ -49,7 +50,7 @@ const Register = () => {
 			if (passwordValid && (password.length > 7 && password.length < 33) || password.length === 0)
 				setPasswordError("");
 			else
-				setPasswordError("Password must be 8-32 characters, letters/numbers only.");
+				setPasswordError("Password must be 8-32 characters, letters and numbers only.");
 		}
 
 		// Ensure confirm password matches password
@@ -133,7 +134,7 @@ const Register = () => {
 
 	return (
 		<>
-			<form onSubmit={(e) => handleSubmit(e)}>
+			<Form onSubmit={handleSubmit}>
 				<FormInput
 					type="text"
 					label="Username"
@@ -177,7 +178,7 @@ const Register = () => {
 						confirmPasswordError !== ""
 					}
 				/>
-			</form>
+			</Form>
 			{formError && <p className="text-xs text-pink-700">{formError}</p>}
 		</>
 	)

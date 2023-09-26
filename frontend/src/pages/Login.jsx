@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import {Navigate} from "react-router-dom"
 
+import Form from "../components/Form.jsx"
 import FormInput from "../components/FormInput.jsx"
 
 import LoginContext from "../LoginContext.jsx";
@@ -64,7 +65,7 @@ const Login = () => {
 
 	return (
 		<>
-			<form onSubmit={(e) => handleSubmit(e)}>
+			<Form onSubmit={handleSubmit}>
 				<FormInput
 					type="text"
 					label="Username"
@@ -90,7 +91,7 @@ const Login = () => {
 						status === "submitting"
 					}
 				/>
-			</form>
+			</Form>
 			{formError && <p className="text-xs text-pink-700">{formError}</p>}
 		</>
 	)
