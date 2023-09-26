@@ -91,7 +91,7 @@ const Login = () => {
 					}
 				/>
 			</form>
-			<p className="text-xs text-pink-700">{formError}</p>
+			{formError && <p className="text-xs text-pink-700">{formError}</p>}
 		</>
 	)
 };

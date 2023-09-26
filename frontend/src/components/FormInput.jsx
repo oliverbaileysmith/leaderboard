@@ -35,9 +35,9 @@ const FormInput = (props) => {
 							props.onBlur();
 					}}
 					disabled={props.disabled}
-					className="block"
+					className="block mb-2"
 				/>
-				<p className="text-xs text-pink-700">{props.error}</p>
+				{props.error && <p className="text-xs text-pink-700">{props.error}</p>}
 			</>
 		)
 	}
