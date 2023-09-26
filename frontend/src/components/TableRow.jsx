@@ -20,7 +20,7 @@ const TableRow = (props) => {
 	}
 
 	return (
-		<tr className="border-y odd:bg-slate-200 hover:bg-slate-300 group/row whitespace-nowrap">
+		<tr className="border-y odd:bg-slate-200 hover:bg-slate-300 whitespace-nowrap">
 
 			<td className="text-center py-1.5">
 				<span className={rankClasses}>{props.rank}</span>
@@ -29,7 +29,7 @@ const TableRow = (props) => {
 			<td className="text-center py-1.5 font-semibold">
 				<Link
 					to={`/user/${s.username}`}
-					className="hover:underline p-2"
+					className="hover:underline"
 				>
 					{s.username}
 				</Link>
@@ -42,7 +42,7 @@ const TableRow = (props) => {
 			<td className="text-center py-1.5">
 				<Link
 					to={`/level/${s.level}`}
-					className="hover:underline p-2"
+					className="hover:underline"
 				>
 					{s.level}
 				</Link>
@@ -57,11 +57,11 @@ const TableRow = (props) => {
 				</span>
 			</td>
 
-			<td className="text-center p-0 m-0">
+			<td className="text-center p-1.5">
 				{loginContext.user.username === s.username ? (
 					<Link
 						to={`/edit/${s._id}`}
-						className="hover:underline invisible group-hover/row:visible"
+						className="hover:underline"
 					>
 						Edit
 					</Link>
