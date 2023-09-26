@@ -61,7 +61,7 @@ const TableRow = (props) => {
 				{loginContext.user.username === s.username ? (
 					<Link
 						to={`/edit/${s._id}`}
-						className="hover:underline"
+						className="hover:underline text-stone-500 hover:text-black"
 					>
 						Edit
 					</Link>
