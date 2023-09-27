@@ -22,6 +22,9 @@ const EditScore = () => {
 	const [levelError, setLevelError] = useState("");
 	const [formError, setFormError] = useState("");
 
+	const [deleted, setDeleted] = useState(false);
+	const [deleteError, setDeleteError] = useState("");
+
 	const location = useLocation();
 	const loginContext = useContext(LoginContext);
 
@@ -101,11 +104,30 @@ const EditScore = () => {
 		setStatus("typing");
 	}
 
+	// Delete score
+	const handleDelete = () => {
+		fetch(`http://localhost:5555/api/scores/${scoreDocument._id}`,
+		{
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			credentials: "include"
+		})
+		.then(res => {
+			if (!res.ok)
+				throw new Error("Failed to delete score. Please try again.");
+			setDeleted(true);
+		})
+		.catch(error => setDeleteError(error.message));
+	}
+
 	if (loading)
 		return <div>Loading...</div>
 
-	if (!loading && (loginContext.user.username !== scoreDocument.username))
+	if (deleted || (!loading && (loginContext.user.username !== scoreDocument.username)))
 		return <Navigate to="/" />
+
 
 	return (
 		<>
@@ -138,6 +160,12 @@ const EditScore = () => {
 						scoreError !== "" ||
 						levelError !== ""
 					}
+				/>
+				{formError && <p className="text-xs text-pink-700">{formError}</p>}
+				<Button
+					label="Delete"
+					onClick={handleDelete}
+					warn={true}
 				/>
 				{formError && <p className="text-xs text-pink-700">{formError}</p>}
 			</Form>

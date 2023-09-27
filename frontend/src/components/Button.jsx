@@ -1,11 +1,12 @@
 import React from "react";
 
 const Button = (props) => {
+
+	const colors = props.warn ? " bg-red-500 hover:bg-red-800" : " bg-sky-900 hover:bg-slate-800"
+
 	return (
 		<button
-			className="
-				bg-sky-900
-				hover:bg-slate-800
+			className={`
 				enabled:hover:cursor-pointer
 				disabled:hover:cursor-not-allowed
 				rounded
@@ -14,7 +15,8 @@ const Button = (props) => {
 				text-white
 				text-sm
 				font-semibold
-			"
+				${colors}
+			`}
 			type="button"
 			onClick={() => {
 				if (props.onClick)

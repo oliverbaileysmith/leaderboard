@@ -19,7 +19,7 @@ router.get("/user/:username", getUserScores);
 router.get("/level/:level", getLevelScores);
 router.get("/:id", getScoreById);
 router.post("/", protect, newScore);
-router.put("/:id", updateScore);
-router.delete("/:id", deleteScore);
+router.put("/:id", protect, updateScore);
+router.delete("/:id", protect, deleteScore);
 
 export default router;

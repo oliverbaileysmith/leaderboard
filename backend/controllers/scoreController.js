@@ -57,6 +57,11 @@ const getScoreById = asyncWrap(async (req, res, next) => {
 	// Find scores for that level
 	const scoreDocument = await Score.findById(id);
 
+	if (!scoreDocument) {
+		res.status(400);
+		throw new Error("Score does not exist");
+	}
+
 	res.status(200).json({
 		count: 1,
 		data: scoreDocument
@@ -71,6 +76,11 @@ const newScore = asyncWrap(async (req, res, next) => {
 	if (!req.body.username || !req.body.score || !req.body.level) {
 		res.status(400);
 		throw new Error("Not all required fields (username, score, level) were present.");
+	}
+
+	if (req.user.username != req.body.username) {
+		res.status(403);
+		throw new Error("Cannot submit score, unauthorized.");
 	}
 
 	// Create new score
@@ -88,7 +98,7 @@ const newScore = asyncWrap(async (req, res, next) => {
 
 // Update a score
 // PUT /api/scores/:id
-// Private (or admin)
+// Private
 const updateScore = asyncWrap(async (req, res, next) => {
 	// Ensure required fields are present
 	if (!req.body.username || !req.body.score || !req.body.level) {
@@ -98,6 +108,12 @@ const updateScore = asyncWrap(async (req, res, next) => {
 
 	// Get id from request
 	const {id} = req.params;
+
+	// Ensure correct user is sending request
+	if (req.user.username != req.body.username) {
+		res.status(403);
+		throw new Error("Cannot update score, unauthorized.");
+	}
 
 	// Find and update score by id
 	const scoreDocument = await Score.findByIdAndUpdate(id, req.body);
@@ -112,13 +128,21 @@ const updateScore = asyncWrap(async (req, res, next) => {
 
 // Delete a score
 // DELETE /api/scores/:id
-// Private (or admin)
+// Private
 const deleteScore = asyncWrap(async (req, res, next) => {
 	// Get id from request
 	const { id } = req.params;
 
+	let scoreDocument = await Score.findById(id);
+
+	// Ensure correct user is sending request
+	if (req.user.username != scoreDocument.username) {
+		res.status(403);
+		throw new Error("Cannot delete score, unauthorized.");
+	}
+
 	// Find and delete score by id
-	const scoreDocument = await Score.findByIdAndDelete(id);
+	scoreDocument = await Score.findByIdAndDelete(id);
 
 	if (!scoreDocument) {
 		return res.status(404);
