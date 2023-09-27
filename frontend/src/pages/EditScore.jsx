@@ -13,6 +13,7 @@ const EditScore = () => {
 	const [score, setScore] = useState("");
 	const [level, setLevel] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [redirect, setRedirect] = useState(false);
 
 	// Status options are typing, submitting
 	const [status, setStatus] = useState("typing");
@@ -21,8 +22,6 @@ const EditScore = () => {
 	const [scoreError, setScoreError] = useState("");
 	const [levelError, setLevelError] = useState("");
 	const [formError, setFormError] = useState("");
-
-	const [deleted, setDeleted] = useState(false);
 	const [deleteError, setDeleteError] = useState("");
 
 	const location = useLocation();
@@ -39,8 +38,10 @@ const EditScore = () => {
 			credentials: "include"
 		})
 		.then(res => {
-			if (!res.ok)
+			if (!res.ok) {
+				setRedirect(true);
 				throw new Error("Network error.");
+			}
 			return res.json();
 		})
 		.then(res => {
@@ -96,6 +97,7 @@ const EditScore = () => {
 			return res.json();
 		})
 		.then(data => {
+			setRedirect(true);
 			setFormError("");
 		})
 		.catch(error => {
@@ -117,7 +119,7 @@ const EditScore = () => {
 		.then(res => {
 			if (!res.ok)
 				throw new Error("Failed to delete score. Please try again.");
-			setDeleted(true);
+			setRedirect(true);
 		})
 		.catch(error => setDeleteError(error.message));
 	}
@@ -125,7 +127,9 @@ const EditScore = () => {
 	if (loading)
 		return <div>Loading...</div>
 
-	if (deleted || (!loading && (loginContext.user.username !== scoreDocument.username)))
+	if (redirect ||
+		((loginContext.user.username !== scoreDocument.username))
+	)
 		return <Navigate to="/" />
 
 
@@ -167,7 +171,7 @@ const EditScore = () => {
 					onClick={handleDelete}
 					warn={true}
 				/>
-				{formError && <p className="text-xs text-pink-700">{formError}</p>}
+				{deleteError && <p className="text-xs text-pink-700">{deleteError}</p>}
 			</Form>
 		</>
 	)
