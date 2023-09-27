@@ -47,6 +47,23 @@ const getLevelScores = asyncWrap(async (req, res, next) => {
 	});
 });
 
+// Get an individual score by id
+// GET /api/scores/:id
+// Public
+const getScoreById = asyncWrap(async (req, res, next) => {
+	// Get level from request
+	const { id } = req.params;
+	console.log(id);
+
+	// Find scores for that level
+	const scoreDocument = await Score.findById(id);
+
+	res.status(200).json({
+		count: 1,
+		data: scoreDocument
+	});
+});
+
 // Save a new score
 // POST /api/scores/
 // Private
@@ -116,6 +133,7 @@ export {
 	getRecentScores,
 	getUserScores,
 	getLevelScores,
+	getScoreById,
 	newScore,
 	updateScore,
 	deleteScore
