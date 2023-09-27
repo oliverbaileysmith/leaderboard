@@ -178,8 +178,8 @@ const Register = () => {
 						confirmPasswordError !== ""
 					}
 				/>
+				{formError && <p className="text-xs text-pink-700">{formError}</p>}
 			</Form>
-			{formError && <p className="text-xs text-pink-700">{formError}</p>}
 		</>
 	)
 };

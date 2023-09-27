@@ -53,7 +53,6 @@ const getLevelScores = asyncWrap(async (req, res, next) => {
 const getScoreById = asyncWrap(async (req, res, next) => {
 	// Get level from request
 	const { id } = req.params;
-	console.log(id);
 
 	// Find scores for that level
 	const scoreDocument = await Score.findById(id);
