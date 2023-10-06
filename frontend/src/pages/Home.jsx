@@ -2,13 +2,15 @@ import React, {useState, useEffect} from "react";
 
 import ScoresTable from "../components/ScoresTable.jsx";
 
+import BACKEND_URL from "../URL.js";
+
 const Home = () => {
 	const [scores, setScores] = useState();
 	const [loading, setLoading] = useState(true);
 
 	// Fetch all scores on page setup
 	useEffect(() => {
-		fetch("http://localhost:5555/api/scores/",
+		fetch(`${BACKEND_URL}/api/scores/`,
 		{
 			method: "GET",
 			headers: {

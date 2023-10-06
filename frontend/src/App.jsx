@@ -13,6 +13,8 @@ import Header from "./components/Header.jsx";
 
 import LoginContext from "./LoginContext.jsx";
 
+import BACKEND_URL from "./URL.js"
+
 const App = () => {
 	const updateLogin = (data) => {
 		setIsLoggedIn(data.isLoggedIn);
@@ -24,7 +26,7 @@ const App = () => {
 
 	// Get user info upon app startup
 	useEffect(() => {
-		fetch("http://localhost:5555/api/users/profile",
+		fetch(BACKEND_URL + "/api/users/profile",
 		{
 			method: "GET",
 			headers: {

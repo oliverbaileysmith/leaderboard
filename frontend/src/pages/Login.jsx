@@ -6,6 +6,8 @@ import FormInput from "../components/FormInput.jsx"
 
 import LoginContext from "../LoginContext.jsx";
 
+import BACKEND_URL from "../URL.js";
+
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -27,7 +29,7 @@ const Login = () => {
 		};
 
 		let resOk = true;
-		fetch("http://localhost:5555/api/users/login",
+		fetch(`${BACKEND_URL}/api/users/login`,
 		{
 			method: "POST",
 			headers: {

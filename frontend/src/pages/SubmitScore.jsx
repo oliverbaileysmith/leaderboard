@@ -7,6 +7,8 @@ import Button from "../components/Button.jsx"
 
 import LoginContext from "../LoginContext.jsx";
 
+import BACKEND_URL from "../URL.js";
+
 const SubmitScore = () => {
 	const [score, setScore] = useState("");
 	const [level, setLevel] = useState("");
@@ -47,7 +49,7 @@ const SubmitScore = () => {
 			level: level
 		};
 
-		fetch("http://localhost:5555/api/scores/",
+		fetch(`${BACKEND_URL}/api/scores/`,
 		{
 			method: "POST",
 			headers: {

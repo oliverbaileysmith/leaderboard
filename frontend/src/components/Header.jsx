@@ -6,11 +6,13 @@ import LoginContext from "../LoginContext.jsx";
 import HeaderItem from "./HeaderItem.jsx"
 import Button from "./Button.jsx";
 
+import BACKEND_URL from "../URL.js";
+
 const Header = () => {
 	const loginContext = useContext(LoginContext);
 
 	const logOut = () => {
-		fetch("http://localhost:5555/api/users/logout",
+		fetch(`${BACKEND_URL}/api/users/logout`,
 		{
 			method: "POST",
 			headers: {

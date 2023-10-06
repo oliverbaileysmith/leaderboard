@@ -7,6 +7,8 @@ import Button from "../components/Button.jsx"
 
 import LoginContext from "../LoginContext.jsx";
 
+import BACKEND_URL from "../URL.js";
+
 const EditScore = () => {
 	const [scoreDocument, setScoreDocument] = useState({});
 
@@ -29,7 +31,7 @@ const EditScore = () => {
 
 	// Fetch score on page setup
 	useEffect(() => {
-		fetch(`http://localhost:5555/api/scores${location.pathname.substr(5, location.pathname.length)}`,
+		fetch(`${BACKEND_URL}/api/scores${location.pathname.substr(5, location.pathname.length)}`,
 		{
 			method: "GET",
 			headers: {
@@ -82,7 +84,7 @@ const EditScore = () => {
 			level: level
 		};
 
-		fetch(`http://localhost:5555/api/scores/${scoreDocument._id}`,
+		fetch(`${BACKEND_URL}/api/scores/${scoreDocument._id}`,
 		{
 			method: "PUT",
 			headers: {
@@ -108,7 +110,7 @@ const EditScore = () => {
 
 	// Delete score
 	const handleDelete = () => {
-		fetch(`http://localhost:5555/api/scores/${scoreDocument._id}`,
+		fetch(`${BACKEND_URL}/api/scores/${scoreDocument._id}`,
 		{
 			method: "DELETE",
 			headers: {

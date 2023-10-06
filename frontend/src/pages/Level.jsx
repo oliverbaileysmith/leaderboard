@@ -3,6 +3,8 @@ import {useLocation} from "react-router-dom";
 
 import ScoresTable from "../components/ScoresTable.jsx";
 
+import BACKEND_URL from "../URL.js";
+
 const Level = () => {
 	const [scores, setScores] = useState();
 	const [loading, setLoading] = useState(true);
@@ -11,7 +13,7 @@ const Level = () => {
 
 	// Fetch scores for this level on page setup
 	useEffect(() => {
-		fetch(`http://localhost:5555/api/scores${location.pathname}`,
+		fetch(`${BACKEND_URL}/api/scores${location.pathname}`,
 		{
 			method: "GET",
 			headers: {
