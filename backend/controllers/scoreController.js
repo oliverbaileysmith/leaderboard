@@ -9,6 +9,10 @@ const getRecentScores = asyncWrap(async (req, res, next) => {
 	// Get all documents sorted by time updated, descending
 	const scoresDocuments = await Score.find({}).sort({updatedAt: -1});
 
+	if (process.env.NODE_ENV === "production") {
+		res.setHeader('Access-Control-Allow-Origin', "testing/");
+	}
+
 	res.status(200).json({
 		count: scoresDocuments.length,
 		data: scoresDocuments
