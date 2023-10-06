@@ -11,6 +11,9 @@ import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
+const FRONTEND_URL = process.env.NODE_ENV === "production" ?
+	process.env.FRONTEND_URL_PRODUCTION :
+	process.env.FRONTEND_URL_DEVELOPMENT
 
 const app = express();
 
@@ -24,7 +27,7 @@ app.use(cookieParser());
 // Handle CORS
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin: FRONTEND_URL,
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		allowedHeaders: ["Content-Type"],
 		credentials: true
