@@ -22,25 +22,17 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 // Handle CORS
-if (process.env.NODE_ENV === "production") {
-	app.use(
-		cors({
-			origin: process.env.FRONTEND_URL_PRODUCTION,
-			methods: ["GET", "POST", "PUT", "DELETE"],
-			allowedHeaders: ["Content-Type"],
-			credentials: true
-		})
-	);
-} else {
-	app.use(
-		cors({
-			origin: process.env.FRONTEND_URL_DEVELOPMENT,
-			methods: ["GET", "POST", "PUT", "DELETE"],
-			allowedHeaders: ["Content-Type"],
-			credentials: true
-		})
-	);
-}
+app.use(
+	cors({
+		origin: [
+			"http://localhost:5173",
+			"https://leaderboard-frontend-zeta.vercel.app/"
+		],
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		allowedHeaders: ["Content-Type"],
+		credentials: true
+	})
+);
 
 // Routes
 app.use("/api/scores", scoreRoutes);
