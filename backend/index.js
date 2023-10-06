@@ -45,6 +45,9 @@ app.get("/", (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
+console.log(`Environment: ${process.env.NODE_ENV}`);
+console.log(`Frontend URL for CORS: ${FRONTEND_URL}`);
+
 // Connect to MongoDB and start node server if successful
 mongoose.connect(process.env.MONGODB_URI)
 	.then(() => {
