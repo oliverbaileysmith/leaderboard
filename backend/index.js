@@ -34,6 +34,9 @@ app.use(
 // Routes
 app.use("/api/scores", scoreRoutes);
 app.use("/api/users", userRoutes);
+app.get("/", (req, res) => {
+	return res.status(200).send("Leaderboard!");
+});
 
 // Custom error handling
 app.use(notFound);
