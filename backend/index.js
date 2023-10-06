@@ -11,9 +11,6 @@ import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
-const FRONTEND_URL = process.env.NODE_ENV === "production" ?
-	process.env.FRONTEND_URL_PRODUCTION :
-	process.env.FRONTEND_URL_DEVELOPMENT
 
 const app = express();
 
@@ -25,14 +22,25 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 // Handle CORS
-app.use(
-	cors({
-		origin: FRONTEND_URL,
-		methods: ["GET", "POST", "PUT", "DELETE"],
-		allowedHeaders: ["Content-Type"],
-		credentials: true
-	})
-);
+if (process.env.NODE_ENV === "production") {
+	app.use(
+		cors({
+			origin: process.env.FRONTEND_URL_PRODUCTION,
+			methods: ["GET", "POST", "PUT", "DELETE"],
+			allowedHeaders: ["Content-Type"],
+			credentials: true
+		})
+	);
+} else {
+	app.use(
+		cors({
+			origin: process.env.FRONTEND_URL_DEVELOPMENT,
+			methods: ["GET", "POST", "PUT", "DELETE"],
+			allowedHeaders: ["Content-Type"],
+			credentials: true
+		})
+	);
+}
 
 // Routes
 app.use("/api/scores", scoreRoutes);
@@ -46,7 +54,6 @@ app.use(notFound);
 app.use(errorHandler);
 
 console.log(`Environment: ${process.env.NODE_ENV}`);
-console.log(`Frontend URL for CORS: ${FRONTEND_URL}`);
 
 // Connect to MongoDB and start node server if successful
 mongoose.connect(process.env.MONGODB_URI)
