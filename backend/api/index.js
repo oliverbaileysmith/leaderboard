@@ -4,10 +4,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
+import {notFound, errorHandler} from "../middleware/errorMiddleware.js";
 
-import scoreRoutes from "./routes/scoreRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
+import scoreRoutes from "../routes/scoreRoutes.js";
+import userRoutes from "../routes/userRoutes.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -54,3 +54,5 @@ mongoose.connect(process.env.MONGODB_URI)
 	.catch((error) => {
 		console.error(error);
 	});
+
+export default app;
