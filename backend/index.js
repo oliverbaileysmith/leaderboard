@@ -26,9 +26,10 @@ app.use(
 	cors({
 		origin: [
 			"http://localhost:5173",
-			"https://leaderboard-frontend-zeta.vercel.app/"
+			"https://leaderboard-frontend-zeta.vercel.app/",
+			"https://leaderboard-frontend-15hu.onrender.com"
 		],
-		methods: ["GET", "POST", "PUT", "DELETE"],
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 		allowedHeaders: ["Content-Type"],
 		credentials: true
 	})
