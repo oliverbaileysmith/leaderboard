@@ -1,4 +1,5 @@
 # leaderboard
+## Summary
 A full-stack video game leaderboard application.<br/>
 React frontend, Node/Express REST API with MongoDB database.<br/>
 [Live deployment on render.com (please wait a minute for backend to spin up)](https://leaderboard-frontend-15hu.onrender.com/)
@@ -10,8 +11,20 @@ Password: demopassword
 ```
 **Note - please read if unable to submit a score:**<br/>
 For the purposes of CORS, "onrender.com" is considered an extension rather than a domain. As a result, the backend and frontend are on different domains, so I had to use `sameSite: none` attribute on the authentication cookie. Because of this, browsers will not save the cookie if third-party cookie blocking is enabled, and features requiring authentication such as submitting a new score will not work on the live deployment. I am planning to host the site on my own domain in the future to remedy this.
-<br/><br/>
-<img src="gallery/leaderboard.png" alt="Leaderboard home page"/>
+<br/>
+## Screenshots
+**Desktop**
+<br/>
+<img src="gallery/leaderboard-desktop.png" alt="Leaderboard home page on desktop"/>
+<br/>
+**Tablet**
+<br/>
+<img src="gallery/leaderboard-tablet.png" alt="Leaderboard home page on tablet"/>
+<br/>
+**Mobile**
+<br/>
+<img src="gallery/leaderboard-mobile.png" alt="Leaderboard home page on mobile"/>
+<br/>
 ## Features
 - React frontend
   - Responsive design using Tailwind
